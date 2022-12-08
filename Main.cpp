@@ -14,6 +14,5 @@ int main()
         window.clear(sf::Color::Yellow);
         window.display();
     }
-
     return 0;
 }
