@@ -16,7 +16,7 @@ Plansza::Plansza(int ile_komorek, int jaki_rozmiar_komorki) : liczba_komorek(ile
 
 Plansza::~Plansza()
 {
-    for (int i = 0; i < liczba_komorek; ++i)
+    for (int i = 0; i < liczba_komorek; i++)
     {
         delete[] populacja_obecna[i];
         delete[] populacja_nastepna[i];
