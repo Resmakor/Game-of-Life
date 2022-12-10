@@ -11,7 +11,8 @@ class Plansza
 public:
 	Plansza(int ile_komorek, int jaki_rozmiar_komorki);
 	~Plansza();
-	void Wyswietl_komorke();
+	void Wyswietl_komorke(int x, int y);
+	void Wyswietl_komorki();
 	void Inicjalizuj();
 
 };

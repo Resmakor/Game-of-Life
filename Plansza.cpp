@@ -25,8 +25,14 @@ Plansza::~Plansza()
     delete[] populacja_nastepna;
 }
 
-void Plansza::Wyswietl_komorke()
+void Plansza::Wyswietl_komorke(int x, int y)
 {
+
+}
+
+void Plansza::Wyswietl_komorki()
+{
+
 }
 
 void Plansza::Inicjalizuj()
