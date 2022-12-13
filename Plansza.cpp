@@ -39,7 +39,7 @@ void Plansza::Wybierz_i_losowych_pol(int i)
     {
         temp_x = rand() % liczba_komorek;
         temp_y = rand() % liczba_komorek;
-        if (temp_x > 0 && temp_y > 0 && temp_x < liczba_komorek + 1 && temp_y < liczba_komorek + 1)
+        if (temp_x >= 0 && temp_y >= 0 && temp_x < liczba_komorek && temp_y < liczba_komorek)
         {
             if (populacja_obecna[temp_x][temp_y] == false)
             {
@@ -50,19 +50,17 @@ void Plansza::Wybierz_i_losowych_pol(int i)
     }
 }
 
-
 sf::RectangleShape Plansza::Zwroc_komorke(int x, int y)
 {
     sf::RectangleShape cell;
     cell.setPosition(x * rozmiar_komorki, y * rozmiar_komorki);
     cell.setSize(vector);
-    cell.setOutlineThickness(1);
+    cell.setOutlineThickness(2);
     cell.setOutlineColor(sf::Color::Green);
-    if (populacja_obecna[x][y] == 1)
+    if (populacja_obecna[x][y])
     {
         cell.setFillColor(sf::Color::Black);
     }
-        
     else
     {
         cell.setFillColor(sf::Color::White);
@@ -80,7 +78,18 @@ void Plansza::Inicjalizuj()
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
+            {
                 window.close();
+            }
+            else if (event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonReleased)
+            {
+                int x = float(event.mouseButton.x) / rozmiar_komorki;
+                int y = float(event.mouseButton.y) / rozmiar_komorki;
+                if (x >= 0 && x < liczba_komorek && y >= 0 && y < liczba_komorek)
+                {
+                    this->populacja_obecna[x][y] = !(this->populacja_obecna[x][y]);
+                }
+            }
         }
         window.clear(sf::Color::White);
         for (int i = 0; i < liczba_komorek; i++)
