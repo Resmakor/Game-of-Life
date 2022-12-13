@@ -26,6 +26,7 @@ Plansza::~Plansza()
     delete[] populacja_nastepna;
 }
 
+
 sf::RectangleShape Plansza::Zwroc_komorke(int x, int y)
 {
     sf::RectangleShape cell;
