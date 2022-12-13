@@ -72,6 +72,7 @@ sf::RectangleShape Plansza::Zwroc_komorke(int x, int y)
 void Plansza::Inicjalizuj()
 {
     sf::RenderWindow window(sf::VideoMode(rozmiar_komorki * liczba_komorek, rozmiar_komorki * liczba_komorek), "Gra w Zycie");
+    window.setFramerateLimit(60);
     while (window.isOpen())
     {
         sf::Event event;
