@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <cstdlib>
+#include <algorithm>
 class Plansza
 {
 	const int liczba_komorek = { 15 };
