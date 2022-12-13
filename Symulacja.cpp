@@ -19,6 +19,7 @@ void Symulacja::Symuluj()
 		if (this->Sprawdz_rozdzielczosc(liczba_komorek, rozmiar_komorki))
 		{
 			Plansza plansza(liczba_komorek, rozmiar_komorki);
+			plansza.Wybierz_i_losowych_pol(20);
 			plansza.Inicjalizuj();
 			break;
 		}

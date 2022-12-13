@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <cstdlib>
 class Plansza
 {
 	const int liczba_komorek = { 15 };
@@ -11,6 +12,7 @@ class Plansza
 public:
 	Plansza(int ile_komorek, int jaki_rozmiar_komorki);
 	~Plansza();
+	void Wybierz_i_losowych_pol(int i);
 	sf::RectangleShape Zwroc_komorke(int x, int y);
 	void Inicjalizuj();
 

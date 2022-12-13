@@ -26,6 +26,31 @@ Plansza::~Plansza()
     delete[] populacja_nastepna;
 }
 
+void Plansza::Wybierz_i_losowych_pol(int i)
+{
+    if (i > liczba_komorek * liczba_komorek || i < 1)
+    {
+        std::cout << "Nieprawidlowa wartosc pol do wylosowania!" << std::endl;
+        return;
+    }
+    srand(time(0));
+    int licznik_zywych_pol = 0;
+    int temp_x, temp_y;
+    while (licznik_zywych_pol != i)
+    {
+        temp_x = rand() % liczba_komorek;
+        temp_y = rand() % liczba_komorek;
+        if (temp_x > 0 && temp_y > 0 && temp_x < liczba_komorek + 1 && temp_y < liczba_komorek + 1)
+        {
+            if (populacja_obecna[temp_x][temp_y] == false)
+            {
+                populacja_obecna[temp_x][temp_y] = true;
+                licznik_zywych_pol++;
+            }
+        }
+    }
+}
+
 
 sf::RectangleShape Plansza::Zwroc_komorke(int x, int y)
 {
