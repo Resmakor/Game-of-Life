@@ -13,6 +13,7 @@ Plansza::Plansza(int ile_komorek, int jaki_rozmiar_komorki) : liczba_komorek(ile
        populacja_nastepna[i] = new bool[liczba_komorek];
        memset(populacja_nastepna[i], false, liczba_komorek * sizeof(bool));
    }
+   czy_zapauzowano = false;
 }
 
 Plansza::~Plansza()
@@ -50,6 +51,63 @@ void Plansza::Wybierz_i_losowych_pol(int i)
     }
 }
 
+int Plansza::Ile_sasiadow(int x, int y)
+{
+    int sasiedzi = 0;
+    if (x - 1 >= 0 && y - 1 >= 0)
+        sasiedzi += int(populacja_obecna[x - 1][y - 1]);
+    if (y - 1 >= 0)
+        sasiedzi += int(populacja_obecna[x][y - 1]);
+    if (x + 1 < liczba_komorek && y - 1 >= 0)
+        sasiedzi += int(populacja_obecna[x + 1][y - 1]);
+    if (x - 1 >= 0)
+        sasiedzi += int(populacja_obecna[x - 1][y]);
+    if (x + 1 < liczba_komorek)
+        sasiedzi += int(populacja_obecna[x + 1][y]);
+    if (x - 1 >= 0 && y + 1 < liczba_komorek)
+        sasiedzi += int(populacja_obecna[x - 1][y + 1]);
+    if (y + 1 < liczba_komorek)
+        sasiedzi += int(populacja_obecna[x][y + 1]);
+    if (x + 1 < liczba_komorek && y + 1 < liczba_komorek)
+        sasiedzi += int(populacja_obecna[x + 1][y + 1]);
+    return sasiedzi;
+}
+
+
+void Plansza::Aktualizuj()
+{
+    for (int i = 0; i < liczba_komorek; i++)
+    {
+        for (int j = 0; j < liczba_komorek; j++)
+        {
+            int liczba_sasiadow = Ile_sasiadow(i, j);
+            if (liczba_sasiadow == 3 && populacja_obecna[i][j] == false)
+            {
+                populacja_nastepna[i][j] = true;
+            }
+            else if (liczba_sasiadow == 2 || liczba_sasiadow == 3 && populacja_obecna[i][j])
+            {
+                populacja_nastepna[i][j] = true;
+            }
+            else
+            {
+                populacja_nastepna[i][j] = false;
+            }
+        }
+    }
+}
+
+void Plansza::Kopiuj_populacje()
+{
+    for (int i = 0; i < liczba_komorek; i++)
+    {
+        for (int j = 0; j < liczba_komorek; j++)
+        {
+            populacja_obecna[i][j] = populacja_nastepna[i][j];
+        }
+    }
+}
+
 sf::RectangleShape Plansza::Zwroc_komorke(int x, int y)
 {
     sf::RectangleShape cell;
@@ -72,7 +130,7 @@ sf::RectangleShape Plansza::Zwroc_komorke(int x, int y)
 void Plansza::Inicjalizuj()
 {
     sf::RenderWindow window(sf::VideoMode(rozmiar_komorki * liczba_komorek, rozmiar_komorki * liczba_komorek), "Gra w Zycie");
-    window.setFramerateLimit(60);
+    window.setFramerateLimit(75);
     while (window.isOpen())
     {
         sf::Event event;
@@ -82,7 +140,7 @@ void Plansza::Inicjalizuj()
             {
                 window.close();
             }
-            else if (event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonReleased)
+            else if (czy_zapauzowano && event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonReleased)
             {
                 int x = float(event.mouseButton.x) / rozmiar_komorki;
                 int y = float(event.mouseButton.y) / rozmiar_komorki;
@@ -90,7 +148,7 @@ void Plansza::Inicjalizuj()
                 {
                     this->populacja_obecna[x][y] = !(this->populacja_obecna[x][y]);
                 }
-            }
+            }    
         }
         window.clear(sf::Color::White);
         for (int i = 0; i < liczba_komorek; i++)
@@ -101,7 +159,13 @@ void Plansza::Inicjalizuj()
                 window.draw(cell);
             }
         }
+        if (czy_zapauzowano == false)
+        {
+            Aktualizuj();
+            Kopiuj_populacje();
+        }
         window.display();
+        sf::sleep(sf::milliseconds(100));
     }
 }
 
