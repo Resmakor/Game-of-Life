@@ -34,8 +34,7 @@ void Plansza::Wybierz_i_losowych_pol(int i)
         return;
     }
     srand(time(0));
-    int licznik_zywych_pol = 0;
-    int temp_x, temp_y;
+    int licznik_zywych_pol = 0, temp_x, temp_y;
     while (licznik_zywych_pol != i)
     {
         temp_x = rand() % liczba_komorek;
