@@ -1,4 +1,5 @@
 #include "Plansza.h"
+
 Plansza::Plansza(int ile_komorek, int jaki_rozmiar_komorki) : liczba_komorek(ile_komorek), rozmiar_komorki(jaki_rozmiar_komorki)
 {
    vector.x = rozmiar_komorki;
@@ -25,15 +26,25 @@ Plansza::~Plansza()
     delete[] populacja_nastepna;
 }
 
-void Plansza::Wyswietl_komorke(int x, int y)
+sf::RectangleShape Plansza::Zwroc_komorke(int x, int y)
 {
-
+    sf::RectangleShape cell;
+    cell.setPosition(x * rozmiar_komorki, y * rozmiar_komorki);
+    cell.setSize(vector);
+    cell.setOutlineThickness(1);
+    cell.setOutlineColor(sf::Color::Green);
+    if (populacja_obecna[x][y] == 1)
+    {
+        cell.setFillColor(sf::Color::Black);
+    }
+        
+    else
+    {
+        cell.setFillColor(sf::Color::White);
+    }
+    return cell;
 }
 
-void Plansza::Wyswietl_komorki()
-{
-
-}
 
 void Plansza::Inicjalizuj()
 {
@@ -47,6 +58,14 @@ void Plansza::Inicjalizuj()
                 window.close();
         }
         window.clear(sf::Color::White);
+        for (int i = 0; i < liczba_komorek; i++)
+        {
+            for (int j = 0; j < liczba_komorek; j++)
+            {
+                sf::RectangleShape cell = Zwroc_komorke(i, j);
+                window.draw(cell);
+            }
+        }
         window.display();
     }
 }
