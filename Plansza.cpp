@@ -103,44 +103,45 @@ void Plansza::Kopiuj_populacje()
 
 sf::RectangleShape Plansza::Zwroc_komorke(int x, int y)
 {
-    sf::RectangleShape cell;
-    cell.setPosition(x * rozmiar_komorki, y * rozmiar_komorki);
-    cell.setSize(vector);
-    cell.setOutlineThickness(2);
-    cell.setOutlineColor(sf::Color::Green);
+    sf::RectangleShape komorka;
+    komorka.setPosition(x * rozmiar_komorki, y * rozmiar_komorki);
+    komorka.setSize(vector);
+    komorka.setOutlineThickness(1);
+    komorka.setOutlineColor(sf::Color::Green);
     if (populacja_obecna[x][y])
     {
-        cell.setFillColor(sf::Color::Black);
+        komorka.setFillColor(sf::Color::Black);
     }
     else
     {
-        cell.setFillColor(sf::Color::White);
+        komorka.setFillColor(sf::Color::White);
     }
-    return cell;
+    return komorka;
 }
 
-void Plansza::Wyswietl_populacje(sf::RenderWindow& window)
+void Plansza::Wyswietl_populacje(sf::RenderWindow& okno)
 {
     for (int i = 0; i < liczba_komorek; i++)
     {
         for (int j = 0; j < liczba_komorek; j++)
         {
-            window.draw(Zwroc_komorke(i, j));
+            okno.draw(Zwroc_komorke(i, j));
         }
     }
 }
 
 void Plansza::Inicjalizuj()
 {
-    sf::RenderWindow window(sf::VideoMode(rozmiar_komorki * liczba_komorek, rozmiar_komorki * liczba_komorek), "Gra w Zycie - zapauzowano");
-    while (window.isOpen())
+    sf::RenderWindow okno(sf::VideoMode(rozmiar_komorki * liczba_komorek, rozmiar_komorki * liczba_komorek), "Gra w Zycie - zapauzowano");
+
+    while (okno.isOpen())
     {
         sf::Event event;
-        while (window.pollEvent(event))
+        while (okno.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
             {
-                window.close();
+                okno.close();
             }
 
             else if (czy_zapauzowano && event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonReleased)
@@ -158,22 +159,23 @@ void Plansza::Inicjalizuj()
                 czy_zapauzowano = !czy_zapauzowano;
                 if (czy_zapauzowano)
                 {
-                    window.setTitle("Gra w Zycie - zapauzowano");
+                    okno.setTitle("Gra w Zycie - zapauzowano");
                 }
                 else
                 {
-                    window.setTitle("Gra w Zycie");
+                    okno.setTitle("Gra w Zycie");
                 }
             }
         }
-        window.clear(sf::Color::White);
-        Wyswietl_populacje(window);
+
+        okno.clear(sf::Color::White);
+        Wyswietl_populacje(okno);
         if (czy_zapauzowano == false)
         {
             Aktualizuj();
             Kopiuj_populacje();
         }
-        window.display();
+        okno.display();
         sf::sleep(sf::milliseconds(100));
     }
 }
