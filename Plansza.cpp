@@ -133,7 +133,6 @@ void Plansza::Wyswietl_populacje(sf::RenderWindow& window)
 void Plansza::Inicjalizuj()
 {
     sf::RenderWindow window(sf::VideoMode(rozmiar_komorki * liczba_komorek, rozmiar_komorki * liczba_komorek), "Gra w Zycie - zapauzowano");
-    //window.setFramerateLimit(60);
     while (window.isOpen())
     {
         sf::Event event;
