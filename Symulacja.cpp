@@ -20,11 +20,12 @@ void Symulacja::Symuluj()
 	while (true)
 	{
 		int rozmiar_komorki, liczba_komorek;
-		std::cout << "Podaj liczbe komorek: ";
+		std::cout << "Podaj liczbe komorek w rzedzie (zalecana liczba 3 - 400): ";
 		std::cin >> liczba_komorek;
-		std::cout << "Podaj rozmiar komorki zalecany rozmiar to " << Zalecany_rozmiar_komorki(liczba_komorek) << " (px): ";
+		int zalecany_rozmiar = Zalecany_rozmiar_komorki(liczba_komorek);
+		std::cout << "Podaj rozmiar komorki (zalecany rozmiar to " << zalecany_rozmiar << " px): ";
 		std::cin >> rozmiar_komorki;
-		if (this->Sprawdz_rozdzielczosc(liczba_komorek, rozmiar_komorki))
+		if (this->Sprawdz_rozdzielczosc(liczba_komorek, rozmiar_komorki) && zalecany_rozmiar > 1)
 		{
 			Plansza plansza(liczba_komorek, rozmiar_komorki);
 			plansza.Wybierz_i_losowych_pol(5000);
