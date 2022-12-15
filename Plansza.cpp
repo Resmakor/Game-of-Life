@@ -13,7 +13,7 @@ Plansza::Plansza(int ile_komorek, int jaki_rozmiar_komorki) : liczba_komorek(ile
        populacja_nastepna[i] = new bool[liczba_komorek];
        memset(populacja_nastepna[i], false, liczba_komorek * sizeof(bool));
    }
-   czy_zapauzowano = false;
+   czy_zapauzowano = true;
 }
 
 Plansza::~Plansza()
@@ -54,25 +54,18 @@ void Plansza::Wybierz_i_losowych_pol(int i)
 int Plansza::Ile_sasiadow(int x, int y)
 {
     int sasiedzi = 0;
-    if (x - 1 >= 0 && y - 1 >= 0)
-        sasiedzi += int(populacja_obecna[x - 1][y - 1]);
-    if (y - 1 >= 0)
-        sasiedzi += int(populacja_obecna[x][y - 1]);
-    if (x + 1 < liczba_komorek && y - 1 >= 0)
-        sasiedzi += int(populacja_obecna[x + 1][y - 1]);
-    if (x - 1 >= 0)
-        sasiedzi += int(populacja_obecna[x - 1][y]);
-    if (x + 1 < liczba_komorek)
-        sasiedzi += int(populacja_obecna[x + 1][y]);
-    if (x - 1 >= 0 && y + 1 < liczba_komorek)
-        sasiedzi += int(populacja_obecna[x - 1][y + 1]);
-    if (y + 1 < liczba_komorek)
-        sasiedzi += int(populacja_obecna[x][y + 1]);
-    if (x + 1 < liczba_komorek && y + 1 < liczba_komorek)
-        sasiedzi += int(populacja_obecna[x + 1][y + 1]);
-    return sasiedzi;
+    for (int i = x - 1; i <= x + 1; i++)
+    {
+        for (int j = y - 1; j <= y + 1; j++)
+        {
+            if (i >= 0 && i < liczba_komorek && j >= 0 && j < liczba_komorek - 1)
+            {
+                sasiedzi += int(populacja_obecna[i][j]);
+            }
+        }
+    }
+    return sasiedzi - int(populacja_obecna[x][y]);
 }
-
 
 void Plansza::Aktualizuj()
 {
@@ -85,7 +78,7 @@ void Plansza::Aktualizuj()
             {
                 populacja_nastepna[i][j] = true;
             }
-            else if (liczba_sasiadow == 2 || liczba_sasiadow == 3 && populacja_obecna[i][j])
+            else if ((liczba_sasiadow == 2 || liczba_sasiadow == 3) && populacja_obecna[i][j])
             {
                 populacja_nastepna[i][j] = true;
             }
@@ -140,7 +133,7 @@ void Plansza::Wyswietl_populacje(sf::RenderWindow& window)
 void Plansza::Inicjalizuj()
 {
     sf::RenderWindow window(sf::VideoMode(rozmiar_komorki * liczba_komorek, rozmiar_komorki * liczba_komorek), "Gra w Zycie");
-    window.setFramerateLimit(75);
+    //window.setFramerateLimit(60);
     while (window.isOpen())
     {
         sf::Event event;
@@ -150,6 +143,7 @@ void Plansza::Inicjalizuj()
             {
                 window.close();
             }
+
             else if (czy_zapauzowano && event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonReleased)
             {
                 int x = float(event.mouseButton.x) / rozmiar_komorki;
@@ -158,7 +152,12 @@ void Plansza::Inicjalizuj()
                 {
                     this->populacja_obecna[x][y] = !(this->populacja_obecna[x][y]);
                 }
-            }    
+            }
+
+            else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::P)
+            {
+                czy_zapauzowano = !czy_zapauzowano;
+            }
         }
         window.clear(sf::Color::White);
         Wyswietl_populacje(window);
