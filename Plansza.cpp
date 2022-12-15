@@ -132,7 +132,7 @@ void Plansza::Wyswietl_populacje(sf::RenderWindow& window)
 
 void Plansza::Inicjalizuj()
 {
-    sf::RenderWindow window(sf::VideoMode(rozmiar_komorki * liczba_komorek, rozmiar_komorki * liczba_komorek), "Gra w Zycie");
+    sf::RenderWindow window(sf::VideoMode(rozmiar_komorki * liczba_komorek, rozmiar_komorki * liczba_komorek), "Gra w Zycie - zapauzowano");
     //window.setFramerateLimit(60);
     while (window.isOpen())
     {
@@ -157,6 +157,14 @@ void Plansza::Inicjalizuj()
             else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::P)
             {
                 czy_zapauzowano = !czy_zapauzowano;
+                if (czy_zapauzowano)
+                {
+                    window.setTitle("Gra w Zycie - zapauzowano");
+                }
+                else
+                {
+                    window.setTitle("Gra w Zycie");
+                }
             }
         }
         window.clear(sf::Color::White);
