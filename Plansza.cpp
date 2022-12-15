@@ -126,6 +126,16 @@ sf::RectangleShape Plansza::Zwroc_komorke(int x, int y)
     return cell;
 }
 
+void Plansza::Wyswietl_populacje(sf::RenderWindow& window)
+{
+    for (int i = 0; i < liczba_komorek; i++)
+    {
+        for (int j = 0; j < liczba_komorek; j++)
+        {
+            window.draw(Zwroc_komorke(i, j));
+        }
+    }
+}
 
 void Plansza::Inicjalizuj()
 {
@@ -151,14 +161,7 @@ void Plansza::Inicjalizuj()
             }    
         }
         window.clear(sf::Color::White);
-        for (int i = 0; i < liczba_komorek; i++)
-        {
-            for (int j = 0; j < liczba_komorek; j++)
-            {
-                sf::RectangleShape cell = Zwroc_komorke(i, j);
-                window.draw(cell);
-            }
-        }
+        Wyswietl_populacje(window);
         if (czy_zapauzowano == false)
         {
             Aktualizuj();

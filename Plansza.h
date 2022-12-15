@@ -17,6 +17,7 @@ public:
 	void Wybierz_i_losowych_pol(int i);
 	int Ile_sasiadow(int x, int y);
 	sf::RectangleShape Zwroc_komorke(int x, int y);
+	void Wyswietl_populacje(sf::RenderWindow& window);
 	void Inicjalizuj();
 	void Aktualizuj();
 	void Kopiuj_populacje();
