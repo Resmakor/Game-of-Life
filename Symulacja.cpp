@@ -10,7 +10,9 @@ bool Symulacja::Sprawdz_rozdzielczosc(int liczba, int rozmiar)
 
 int Symulacja::Zalecany_rozmiar_komorki(int liczba_komorek)
 {
-	return 0;
+	int min = std::min(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height);
+	min *= 0.9;
+	return  min / liczba_komorek;
 }
 
 void Symulacja::Symuluj()
@@ -25,7 +27,7 @@ void Symulacja::Symuluj()
 		if (this->Sprawdz_rozdzielczosc(liczba_komorek, rozmiar_komorki))
 		{
 			Plansza plansza(liczba_komorek, rozmiar_komorki);
-			plansza.Wybierz_i_losowych_pol(50);
+			plansza.Wybierz_i_losowych_pol(5000);
 			plansza.Inicjalizuj();
 			break;
 		}

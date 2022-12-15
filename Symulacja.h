@@ -1,5 +1,6 @@
 #pragma once
 #include "Plansza.h"
+
 class Symulacja
 {
 public:
