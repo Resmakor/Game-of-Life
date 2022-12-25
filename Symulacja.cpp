@@ -21,7 +21,7 @@ void Symulacja::Symuluj()
 	while (true)
 	{
 		int rozmiar_komorki, liczba_komorek;
-		std::cout << "Podaj liczbe komorek w rzedzie (zalecana liczba 3 - 400): ";
+		std::cout << "Podaj liczbe komorek w rzedzie (zalecana liczba 3 - 200): ";
 		std::cin >> liczba_komorek;
 		int zalecany_rozmiar = Zalecany_rozmiar_komorki(liczba_komorek);
 		std::cout << "Podaj rozmiar komorki (zalecany rozmiar to " << zalecany_rozmiar << " px): ";
