@@ -1,5 +1,5 @@
 #include "Symulacja.h"
-#include <Windows.h>
+
 
 bool Symulacja::Sprawdz_rozdzielczosc(int liczba, int rozmiar)
 {

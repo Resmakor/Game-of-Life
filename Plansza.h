@@ -3,6 +3,8 @@
 #include <iostream>
 #include <cstdlib>
 #include <algorithm>
+#include <Windows.h>
+
 class Plansza
 {
 	const int liczba_komorek = { 15 };
