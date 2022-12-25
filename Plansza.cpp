@@ -165,7 +165,7 @@ void Plansza::Inicjalizuj()
                 if (czy_zapauzowano)
                 {
                     okno.setTitle("Gra w Zycie - zapauzowano");
-                    zmienne_opoznienie = 1;
+                    zmienne_opoznienie = 10;
                 }
                 else
                 {
@@ -173,6 +173,8 @@ void Plansza::Inicjalizuj()
                     zmienne_opoznienie = this->opoznienie;
                 }
             }
+            // TODO DELAY:
+            //
         }
 
         okno.clear(sf::Color::White);
