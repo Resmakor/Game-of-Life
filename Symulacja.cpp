@@ -28,8 +28,13 @@ void Symulacja::Symuluj()
 		std::cin >> rozmiar_komorki;
 		if (this->Sprawdz_rozdzielczosc(liczba_komorek, rozmiar_komorki) && zalecany_rozmiar > 1)
 		{
-			Plansza plansza(liczba_komorek, rozmiar_komorki);
-			plansza.Wybierz_i_losowych_pol(5000);
+			int komorki_do_wylosowania = 0, opoznienie_miedzy_ruchami = 0;
+			std::cout << "Podaj ile zyjacych komorek wylosowac: ";
+			std::cin >> komorki_do_wylosowania;
+			std::cout << "Podaj opoznienie miedzy kolejnymi ruchami (domyslnie 100 ms): ";
+			std::cin >> opoznienie_miedzy_ruchami;
+			Plansza plansza(liczba_komorek, rozmiar_komorki, opoznienie_miedzy_ruchami);
+			plansza.Wybierz_i_losowych_pol(komorki_do_wylosowania);
 			plansza.Inicjalizuj();
 			break;
 		}
