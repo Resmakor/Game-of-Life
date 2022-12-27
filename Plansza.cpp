@@ -99,10 +99,7 @@ void Plansza::Kopiuj_populacje()
 {
     for (int i = 0; i < liczba_komorek; i++)
     {
-        for (int j = 0; j < liczba_komorek; j++)
-        {
-            populacja_obecna[i][j] = populacja_nastepna[i][j];
-        }
+        std::memcpy(populacja_obecna[i], populacja_nastepna[i], sizeof(bool) * liczba_komorek);
     }
 }
 
@@ -174,7 +171,7 @@ void Plansza::Inicjalizuj()
                 }
             }
             // TODO DELAY:
-            //
+            // w tytule moze sie wyswietlac aktualne opoznienie i po zmianie
         }
 
         okno.clear(sf::Color::White);
