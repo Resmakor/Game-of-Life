@@ -38,3 +38,10 @@ Debug/
 *.vcxproj
 *.vcxproj.filters
 *.vcxproj.user
+Release/SFMLx32-0.exe.recipe
+*.iobj
+*.ipdb
+*.log
+*.pdb
+*.tlog
+Release/SFMLx32-0.vcxproj.FileListAbsolute.txt

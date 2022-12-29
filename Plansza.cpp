@@ -63,12 +63,11 @@ int Plansza::Ile_sasiadow(int x, int y)
     {
         for (int j = y - 1; j <= y + 1; j++)
         {
-            if (i >= 0 && i < liczba_komorek && j >= 0 && j < liczba_komorek - 1)
+            if (i >= 0 && i < liczba_komorek && j >= 0 && j < liczba_komorek)
             {
                 sasiedzi += int(populacja_obecna[i][j]);
                 if (sasiedzi == 5)
                 {
-                    // dalej nie musimy sprawdzac
                     return sasiedzi;
                 }
             }
