@@ -1,7 +1,8 @@
 #include "Plansza.h"
 
-Plansza::Plansza(int ile_komorek, int jaki_rozmiar_komorki) : liczba_komorek(ile_komorek), rozmiar_komorki(jaki_rozmiar_komorki)
+Plansza::Plansza(int ile_komorek, int jaki_rozmiar_komorki, int opoznienie) : liczba_komorek(ile_komorek), rozmiar_komorki(jaki_rozmiar_komorki)
 {
+   this->opoznienie = opoznienie;
    vector.x = rozmiar_komorki;
    vector.y = rozmiar_komorki;
    populacja_obecna = new bool* [liczba_komorek];
@@ -29,7 +30,11 @@ Plansza::~Plansza()
 
 void Plansza::Wybierz_i_losowych_pol(int i)
 {
-    if (i > liczba_komorek * liczba_komorek || i < 1)
+    if (i == 0)
+    {
+        return;
+    }
+    else if (i > liczba_komorek * liczba_komorek || i < 0)
     {
         std::cout << "Nieprawidlowa wartosc pol do wylosowania!" << std::endl;
         return;
@@ -58,9 +63,13 @@ int Plansza::Ile_sasiadow(int x, int y)
     {
         for (int j = y - 1; j <= y + 1; j++)
         {
-            if (i >= 0 && i < liczba_komorek && j >= 0 && j < liczba_komorek - 1)
+            if (i >= 0 && i < liczba_komorek && j >= 0 && j < liczba_komorek)
             {
                 sasiedzi += int(populacja_obecna[i][j]);
+                if (sasiedzi == 5)
+                {
+                    return sasiedzi;
+                }
             }
         }
     }
@@ -94,10 +103,7 @@ void Plansza::Kopiuj_populacje()
 {
     for (int i = 0; i < liczba_komorek; i++)
     {
-        for (int j = 0; j < liczba_komorek; j++)
-        {
-            populacja_obecna[i][j] = populacja_nastepna[i][j];
-        }
+        std::memcpy(populacja_obecna[i], populacja_nastepna[i], sizeof(bool) * liczba_komorek);
     }
 }
 
@@ -133,7 +139,7 @@ void Plansza::Wyswietl_populacje(sf::RenderWindow& okno)
 void Plansza::Inicjalizuj()
 {
     sf::RenderWindow okno(sf::VideoMode(rozmiar_komorki * liczba_komorek, rozmiar_komorki * liczba_komorek), "Gra w Zycie - zapauzowano");
-
+    int zmienne_opoznienie = this->opoznienie;
     while (okno.isOpen())
     {
         sf::Event event;
@@ -160,12 +166,16 @@ void Plansza::Inicjalizuj()
                 if (czy_zapauzowano)
                 {
                     okno.setTitle("Gra w Zycie - zapauzowano");
+                    zmienne_opoznienie = 10;
                 }
                 else
                 {
                     okno.setTitle("Gra w Zycie");
+                    zmienne_opoznienie = this->opoznienie;
                 }
             }
+            // TODO DELAY:
+            // w tytule moze sie wyswietlac aktualne opoznienie i po zmianie
         }
 
         okno.clear(sf::Color::White);
@@ -176,7 +186,7 @@ void Plansza::Inicjalizuj()
             Kopiuj_populacje();
         }
         okno.display();
-        sf::sleep(sf::milliseconds(100));
+        sf::sleep(sf::milliseconds(zmienne_opoznienie));
     }
 }
 

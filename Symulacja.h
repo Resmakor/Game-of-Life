@@ -8,4 +8,3 @@ public:
 	int Zalecany_rozmiar_komorki(int liczba_komorek);
 	void Symuluj();
 };
-
