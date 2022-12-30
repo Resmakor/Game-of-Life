@@ -46,3 +46,7 @@ Release/SFMLx32-0.exe.recipe
 *.pdb
 *.tlog
 Release/SFMLx32-0.vcxproj.FileListAbsolute.txt
+icon1.ico
+resource.h
+SFMLx32-0.aps
+SFMLx32-0.rc
