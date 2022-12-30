@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include <algorithm>
 #include <Windows.h>
-
+#define zmiana_opoznienia 50
 class Plansza
 {
 	const int liczba_komorek = { 15 };

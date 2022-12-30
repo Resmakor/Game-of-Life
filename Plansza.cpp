@@ -138,8 +138,7 @@ void Plansza::Wyswietl_populacje(sf::RenderWindow& okno)
 
 void Plansza::Inicjalizuj()
 {
-    sf::RenderWindow okno(sf::VideoMode(rozmiar_komorki * liczba_komorek, rozmiar_komorki * liczba_komorek), "Gra w Zycie - zapauzowano");
-    int zmienne_opoznienie = this->opoznienie;
+    sf::RenderWindow okno(sf::VideoMode(rozmiar_komorki * liczba_komorek, rozmiar_komorki * liczba_komorek), "Gra w Zycie - zapauzowano " + std::to_string(opoznienie) + " ms opoznienia");
     while (okno.isOpen())
     {
         sf::Event event;
@@ -163,30 +162,43 @@ void Plansza::Inicjalizuj()
             else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::P)
             {
                 czy_zapauzowano = !czy_zapauzowano;
-                if (czy_zapauzowano)
+            }
+
+            else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Up)
+            {
+                opoznienie += zmiana_opoznienia;
+            }
+
+            else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Down)
+            {
+                if (opoznienie > zmiana_opoznienia)
                 {
-                    okno.setTitle("Gra w Zycie - zapauzowano");
-                    zmienne_opoznienie = 10;
+                    opoznienie -= zmiana_opoznienia;
                 }
+
                 else
                 {
-                    okno.setTitle("Gra w Zycie");
-                    zmienne_opoznienie = this->opoznienie;
+                    opoznienie = 1;
                 }
             }
-            // TODO DELAY:
-            // w tytule moze sie wyswietlac aktualne opoznienie i po zmianie
         }
 
         okno.clear(sf::Color::White);
         Wyswietl_populacje(okno);
-        if (czy_zapauzowano == false)
+        if (!czy_zapauzowano)
         {
             Aktualizuj();
             Kopiuj_populacje();
+            okno.setTitle("Gra w Zycie " + std::to_string(opoznienie) + " ms opoznienia");
+            okno.display();
+            sf::sleep(sf::milliseconds(opoznienie));
         }
-        okno.display();
-        sf::sleep(sf::milliseconds(zmienne_opoznienie));
+
+        else
+        {
+            okno.setTitle("Gra w Zycie - zapauzowano " + std::to_string(opoznienie) + " ms opoznienia");
+            okno.display();
+        }
     }
 }
 

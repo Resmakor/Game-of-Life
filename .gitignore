@@ -38,6 +38,7 @@ Debug/
 *.vcxproj
 *.vcxproj.filters
 *.vcxproj.user
+Release/
 Release/SFMLx32-0.exe.recipe
 *.iobj
 *.ipdb
