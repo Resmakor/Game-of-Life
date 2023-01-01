@@ -4,7 +4,14 @@
 #include <cstdlib>
 #include <algorithm>
 #include <Windows.h>
-#define zmiana_opoznienia 50
+
+#define ZMIANA_OPOZNIENIA 50
+#define SZARY sf::Color(105, 105, 105)
+#define CZARNY sf::Color::Black
+#define ZIELONY sf::Color::Green
+#define BIALY sf::Color(255, 250, 250)
+#define OUTLINE_THICKNESS 0.5
+
 class Plansza
 {
 	const int liczba_komorek = { 15 };
@@ -24,6 +31,5 @@ public:
 	void Inicjalizuj();
 	void Aktualizuj();
 	void Kopiuj_populacje();
-
 };
 

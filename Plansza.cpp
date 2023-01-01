@@ -3,10 +3,11 @@
 Plansza::Plansza(int ile_komorek, int jaki_rozmiar_komorki, int opoznienie) : liczba_komorek(ile_komorek), rozmiar_komorki(jaki_rozmiar_komorki)
 {
    this->opoznienie = opoznienie;
-   vector.x = rozmiar_komorki;
-   vector.y = rozmiar_komorki;
+   vector.x = rozmiar_komorki - OUTLINE_THICKNESS;
+   vector.y = rozmiar_komorki - OUTLINE_THICKNESS;
    populacja_obecna = new bool* [liczba_komorek];
    populacja_nastepna = new bool* [liczba_komorek];
+   czy_zapauzowano = true;
    for (int i = 0; i < liczba_komorek; i++)
    {
        populacja_obecna[i] = new bool[liczba_komorek];
@@ -14,7 +15,6 @@ Plansza::Plansza(int ile_komorek, int jaki_rozmiar_komorki, int opoznienie) : li
        populacja_nastepna[i] = new bool[liczba_komorek];
        memset(populacja_nastepna[i], false, liczba_komorek * sizeof(bool));
    }
-   czy_zapauzowano = true;
 }
 
 Plansza::~Plansza()
@@ -66,10 +66,6 @@ int Plansza::Ile_sasiadow(int x, int y)
             if (i >= 0 && i < liczba_komorek && j >= 0 && j < liczba_komorek)
             {
                 sasiedzi += int(populacja_obecna[i][j]);
-                if (sasiedzi == 5)
-                {
-                    return sasiedzi;
-                }
             }
         }
     }
@@ -112,16 +108,9 @@ sf::RectangleShape Plansza::Zwroc_komorke(int x, int y)
     sf::RectangleShape komorka;
     komorka.setPosition(x * rozmiar_komorki, y * rozmiar_komorki);
     komorka.setSize(vector);
-    komorka.setOutlineThickness(1);
-    komorka.setOutlineColor(sf::Color::Green);
-    if (populacja_obecna[x][y])
-    {
-        komorka.setFillColor(sf::Color::Black);
-    }
-    else
-    {
-        komorka.setFillColor(sf::Color::White);
-    }
+    komorka.setOutlineThickness(OUTLINE_THICKNESS);
+    komorka.setOutlineColor(BIALY);
+    komorka.setFillColor(ZIELONY);
     return komorka;
 }
 
@@ -131,7 +120,10 @@ void Plansza::Wyswietl_populacje(sf::RenderWindow& okno)
     {
         for (int j = 0; j < liczba_komorek; j++)
         {
-            okno.draw(Zwroc_komorke(i, j));
+            if (populacja_obecna[i][j])
+            {
+                okno.draw(Zwroc_komorke(i, j));
+            }
         }
     }
 }
@@ -166,14 +158,14 @@ void Plansza::Inicjalizuj()
 
             else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Up)
             {
-                opoznienie += zmiana_opoznienia;
+                opoznienie += ZMIANA_OPOZNIENIA;
             }
 
             else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Down)
             {
-                if (opoznienie > zmiana_opoznienia)
+                if (opoznienie > ZMIANA_OPOZNIENIA)
                 {
-                    opoznienie -= zmiana_opoznienia;
+                    opoznienie -= ZMIANA_OPOZNIENIA;
                 }
 
                 else
@@ -181,9 +173,16 @@ void Plansza::Inicjalizuj()
                     opoznienie = 1;
                 }
             }
+            else if (event.type == sf::Event::Resized)
+            {
+                sf::View view = okno.getView();
+                view.setCenter(event.size.width / 2, event.size.height / 2);
+                view.setSize(event.size.width, event.size.height);
+                okno.setView(view);
+            }
         }
 
-        okno.clear(sf::Color::White);
+        okno.clear(SZARY);
         Wyswietl_populacje(okno);
         if (!czy_zapauzowano)
         {
