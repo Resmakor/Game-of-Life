@@ -1,7 +1,7 @@
 #include "Symulacja.h"
 
 
-bool Symulacja::Sprawdz_rozdzielczosc(int liczba, int rozmiar)
+bool Symulacja::Sprawdz_rozdzielczosc(int liczba, int rozmiar)const
 {
 	int szerokosc = sf::VideoMode::getDesktopMode().width;
 	int wysokosc = sf::VideoMode::getDesktopMode().height;
@@ -9,7 +9,7 @@ bool Symulacja::Sprawdz_rozdzielczosc(int liczba, int rozmiar)
 	return pomnozone < szerokosc && pomnozone < wysokosc;
 }
 
-int Symulacja::Zalecany_rozmiar_komorki(int liczba_komorek)
+int Symulacja::Zalecany_rozmiar_komorki(int liczba_komorek)const
 {
 	int min = std::min(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height);
 	min *= 0.9;

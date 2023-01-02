@@ -10,7 +10,7 @@
 #define CZARNY sf::Color::Black
 #define ZIELONY sf::Color::Green
 #define BIALY sf::Color(255, 250, 250)
-#define OUTLINE_THICKNESS 0.5
+#define OUTLINE_THICKNESS 1
 
 class Plansza
 {
@@ -25,9 +25,9 @@ public:
 	Plansza(int ile_komorek, int jaki_rozmiar_komorki, int opoznienie_miedzy_ruchami);
 	~Plansza();
 	void Wybierz_i_losowych_pol(int i);
-	int Ile_sasiadow(int x, int y);
-	sf::RectangleShape Zwroc_komorke(int x, int y);
-	void Wyswietl_populacje(sf::RenderWindow& okno);
+	int Ile_sasiadow(int x, int y)const;
+	sf::RectangleShape Zwroc_komorke(int x, int y)const;
+	void Wyswietl_populacje(sf::RenderWindow& okno)const;
 	void Inicjalizuj();
 	void Aktualizuj();
 	void Kopiuj_populacje();

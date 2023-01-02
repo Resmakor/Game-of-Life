@@ -56,7 +56,7 @@ void Plansza::Wybierz_i_losowych_pol(int i)
     }
 }
 
-int Plansza::Ile_sasiadow(int x, int y)
+int Plansza::Ile_sasiadow(int x, int y)const
 {
     int sasiedzi = 0;
     for (int i = x - 1; i <= x + 1; i++)
@@ -103,7 +103,7 @@ void Plansza::Kopiuj_populacje()
     }
 }
 
-sf::RectangleShape Plansza::Zwroc_komorke(int x, int y)
+sf::RectangleShape Plansza::Zwroc_komorke(int x, int y)const
 {
     sf::RectangleShape komorka;
     komorka.setPosition(x * rozmiar_komorki, y * rozmiar_komorki);
@@ -114,7 +114,7 @@ sf::RectangleShape Plansza::Zwroc_komorke(int x, int y)
     return komorka;
 }
 
-void Plansza::Wyswietl_populacje(sf::RenderWindow& okno)
+void Plansza::Wyswietl_populacje(sf::RenderWindow& okno)const
 {
     for (int i = 0; i < liczba_komorek; i++)
     {
@@ -130,7 +130,7 @@ void Plansza::Wyswietl_populacje(sf::RenderWindow& okno)
 
 void Plansza::Inicjalizuj()
 {
-    sf::RenderWindow okno(sf::VideoMode(rozmiar_komorki * liczba_komorek, rozmiar_komorki * liczba_komorek), "Gra w Zycie - zapauzowano " + std::to_string(opoznienie) + " ms opoznienia");
+    sf::RenderWindow okno(sf::VideoMode(rozmiar_komorki * liczba_komorek, rozmiar_komorki * liczba_komorek), "Gra w Zycie - zapauzowano " + std::to_string(opoznienie) + " ms opoznienia", sf::Style::Titlebar | sf::Style::Close);
     while (okno.isOpen())
     {
         sf::Event event;
@@ -172,13 +172,6 @@ void Plansza::Inicjalizuj()
                 {
                     opoznienie = 1;
                 }
-            }
-            else if (event.type == sf::Event::Resized)
-            {
-                sf::View view = okno.getView();
-                view.setCenter(event.size.width / 2, event.size.height / 2);
-                view.setSize(event.size.width, event.size.height);
-                okno.setView(view);
             }
         }
 
