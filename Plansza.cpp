@@ -109,7 +109,7 @@ sf::RectangleShape Plansza::Zwroc_komorke(int x, int y)const
     komorka.setPosition(x * rozmiar_komorki, y * rozmiar_komorki);
     komorka.setSize(vector);
     komorka.setOutlineThickness(OUTLINE_THICKNESS);
-    komorka.setOutlineColor(BIALY);
+    komorka.setOutlineColor(CZARNY);
     komorka.setFillColor(ZIELONY);
     return komorka;
 }
