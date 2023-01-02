@@ -6,9 +6,9 @@
 #include <Windows.h>
 
 #define ZMIANA_OPOZNIENIA 50
-#define SZARY sf::Color(105, 105, 105)
+#define SZARY sf::Color(58, 58, 58)
 #define CZARNY sf::Color::Black
-#define ZIELONY sf::Color::Green
+#define ZIELONY sf::Color(76, 187, 23)
 #define BIALY sf::Color(255, 250, 250)
 #define OUTLINE_THICKNESS 1
 
