@@ -38,7 +38,7 @@ void Symulacja::Wczytaj(int &parametr)
 	{
 		std::cin.clear();
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		std::cout << "	Podaj inna wartosc: ";
+		std::cout << "	BLAD! PODAJ INNA WARTOSC: ";
 	}
 }
 
@@ -46,26 +46,27 @@ Symulacja::Symulacja()
 {
 	std::cout << "================================= GRA W ZYCIE =================================" << std::endl;
 	std::cout << std::endl;
-	std::cout << "	Podaj liczbe komorek w rzedzie (zalecana liczba 3 - 200): ";
+	std::cout << "	PODAJ LICZBE KOMOREK W RZEDZIE (ZALECANA LICZBA 3 - 200): ";
 	Wczytaj(liczba_komorek);
+	std::cout << liczba_komorek << std::endl;
 	while (liczba_komorek < 2 || Zalecany_rozmiar_komorki(liczba_komorek) < 2)
 	{
-		std::cout << "	Podaj inna wartosc: ";
+		std::cout << "	BLAD! PODAJ INNA WARTOSC: ";
 		Wczytaj(liczba_komorek);
 	}
 	rozmiar_komorki = Zalecany_rozmiar_komorki(liczba_komorek);
-	std::cout << "	Podaj ile zyjacych komorek wylosowac: (0 - " << liczba_komorek * liczba_komorek << "): ";
+	std::cout << "	PODAJ ILE ZYJACYCH KOMOREK WYLOSOWAC (0 - " << liczba_komorek * liczba_komorek << "): ";
 	Wczytaj(komorki_do_wylosowania);
 	while (komorki_do_wylosowania < 0 || komorki_do_wylosowania > liczba_komorek * liczba_komorek)
 	{
-		std::cout << "	Podaj inna wartosc: ";
+		std::cout << "	BLAD! PODAJ INNA WARTOSC: ";
 		Wczytaj(liczba_komorek);
 	}
-	std::cout << "	Podaj opoznienie miedzy kolejnymi ruchami (domyslnie 100 ms): ";
+	std::cout << "	PODAJ OPOZNIENIE MIEDZY KOLEJNYMI RUCHAMI (ms): ";
 	Wczytaj(opoznienie_miedzy_ruchami);
 	while (opoznienie_miedzy_ruchami < 0)
 	{
-		std::cout << "	Podaj inna wartosc: ";
+		std::cout << "	BLAD! PODAJ INNA WARTOSC: ";
 		Wczytaj(opoznienie_miedzy_ruchami);
 	}
 }
