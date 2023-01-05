@@ -35,11 +35,6 @@ void Plansza::Wybierz_i_losowych_pol(int i)
     {
         return;
     }
-    else if (i > liczba_komorek * liczba_komorek || i < 0)
-    {
-        std::cout << "Nieprawidlowa wartosc pol do wylosowania!" << std::endl;
-        return;
-    }
     srand(time(0));
     int licznik_zywych_pol = 0, temp_x, temp_y;
     while (licznik_zywych_pol != i)
