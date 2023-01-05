@@ -1,5 +1,6 @@
 #include "Plansza.h"
 
+
 Plansza::Plansza(int ile_komorek, int jaki_rozmiar_komorki, int opoznienie) : liczba_komorek(ile_komorek), rozmiar_komorki(jaki_rozmiar_komorki)
 {
    this->opoznienie = opoznienie;
