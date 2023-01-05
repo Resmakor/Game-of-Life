@@ -1,5 +1,6 @@
 #include "Plansza.h"
 
+
 Plansza::Plansza(int ile_komorek, int jaki_rozmiar_komorki, int opoznienie) : liczba_komorek(ile_komorek), rozmiar_komorki(jaki_rozmiar_komorki)
 {
    this->opoznienie = opoznienie;
@@ -109,7 +110,7 @@ sf::RectangleShape Plansza::Zwroc_komorke(int x, int y)const
     komorka.setPosition(x * rozmiar_komorki, y * rozmiar_komorki);
     komorka.setSize(vector);
     komorka.setOutlineThickness(OUTLINE_THICKNESS);
-    komorka.setOutlineColor(BIALY);
+    komorka.setOutlineColor(CZARNY);
     komorka.setFillColor(ZIELONY);
     return komorka;
 }

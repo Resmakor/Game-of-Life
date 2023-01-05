@@ -16,30 +16,27 @@ int Symulacja::Zalecany_rozmiar_komorki(int liczba_komorek)const
 	return  min / liczba_komorek;
 }
 
+
+
+Symulacja::Symulacja()
+{
+	std::cout << "========================== GRA W ZYCIE ==========================" << std::endl;
+	std::cout << "Podaj liczbe komorek w rzedzie (zalecana liczba 3 - 200): ";
+	std::cin >> liczba_komorek;
+	rozmiar_komorki = Zalecany_rozmiar_komorki(liczba_komorek);
+	if (this->Sprawdz_rozdzielczosc(liczba_komorek, rozmiar_komorki) && rozmiar_komorki > 1)
+	{
+		std::cout << "Podaj ile zyjacych komorek wylosowac: (0 - " << liczba_komorek * liczba_komorek << "): ";
+		std::cin >> komorki_do_wylosowania;
+		std::cout << "Podaj opoznienie miedzy kolejnymi ruchami (domyslnie 100 ms): ";
+		std::cin >> opoznienie_miedzy_ruchami;
+	}
+	std::cout << "=================================================================" << std::endl;
+}
+
 void Symulacja::Symuluj()
 {
-	while (true)
-	{
-		int rozmiar_komorki, liczba_komorek;
-		std::cout << "Podaj liczbe komorek w rzedzie (zalecana liczba 3 - 200): ";
-		std::cin >> liczba_komorek;
-		int zalecany_rozmiar = Zalecany_rozmiar_komorki(liczba_komorek);
-		std::cout << "Podaj rozmiar komorki (zalecany rozmiar to " << zalecany_rozmiar << " px): ";
-		std::cin >> rozmiar_komorki;
-		if (this->Sprawdz_rozdzielczosc(liczba_komorek, rozmiar_komorki) && zalecany_rozmiar > 1)
-		{
-			int komorki_do_wylosowania = 0, opoznienie_miedzy_ruchami = 0;
-			std::cout << "Podaj ile zyjacych komorek wylosowac: ";
-			std::cin >> komorki_do_wylosowania;
-			std::cout << "Podaj opoznienie miedzy kolejnymi ruchami (domyslnie 100 ms): ";
-			std::cin >> opoznienie_miedzy_ruchami;
-			Plansza plansza(liczba_komorek, rozmiar_komorki, opoznienie_miedzy_ruchami);
-			plansza.Wybierz_i_losowych_pol(komorki_do_wylosowania);
-			plansza.Inicjalizuj();
-			break;
-		}
-		system("cls");
-		std::cout << "Okno dla poprzednich parametrow jest zbyt duze/male!" << std::endl;
-		
-	}
+	Plansza plansza(liczba_komorek, rozmiar_komorki, opoznienie_miedzy_ruchami);
+	plansza.Wybierz_i_losowych_pol(komorki_do_wylosowania);
+	plansza.Inicjalizuj();		
 }
