@@ -20,18 +20,26 @@ int Symulacja::Zalecany_rozmiar_komorki(int liczba_komorek)const
 
 Symulacja::Symulacja()
 {
-	std::cout << "========================== GRA W ZYCIE ==========================" << std::endl;
-	std::cout << "Podaj liczbe komorek w rzedzie (zalecana liczba 3 - 200): ";
+	std::cout << "================================= GRA W ZYCIE =================================" << std::endl;
+	std::cout << std::endl;
+	std::cout << "	Podaj liczbe komorek w rzedzie (zalecana liczba 3 - 200): ";
 	std::cin >> liczba_komorek;
 	rozmiar_komorki = Zalecany_rozmiar_komorki(liczba_komorek);
 	if (this->Sprawdz_rozdzielczosc(liczba_komorek, rozmiar_komorki) && rozmiar_komorki > 1)
 	{
-		std::cout << "Podaj ile zyjacych komorek wylosowac: (0 - " << liczba_komorek * liczba_komorek << "): ";
+		std::cout << "	Podaj ile zyjacych komorek wylosowac: (0 - " << liczba_komorek * liczba_komorek << "): ";
 		std::cin >> komorki_do_wylosowania;
-		std::cout << "Podaj opoznienie miedzy kolejnymi ruchami (domyslnie 100 ms): ";
+		std::cout << "	Podaj opoznienie miedzy kolejnymi ruchami (domyslnie 100 ms): ";
 		std::cin >> opoznienie_miedzy_ruchami;
+		system("cls");
+		std::cout << "================================= STEROWANIE =================================" << std::endl;
+		std::cout << std::endl;
+		std::cout << "	ABY OZYWIC/ZABIC KOMORKE NACISNIJ NA NIA LEWYM PRZYCISKIEM MYSZY W CZASIE PAUZY" << std::endl;
+		std::cout << "	ABY ZATRZYMAC/WZNOWIC SYMULACJE WCISNIJ KLAWISZ 'P'" << std::endl;
+		std::cout << "	ABY ZWIEKSZYC/ZMNIEJSZYC OPOZNIENIE WCISNIJ KLAWISZ STRZALKA GORNA/DOLNA" << std::endl;
+		std::cout << "===============================================================================" << std::endl;
 	}
-	std::cout << "=================================================================" << std::endl;
+	
 }
 
 void Symulacja::Symuluj()
