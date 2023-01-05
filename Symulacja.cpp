@@ -16,8 +16,6 @@ int Symulacja::Zalecany_rozmiar_komorki(int liczba_komorek)const
 	return  min / liczba_komorek;
 }
 
-
-
 Symulacja::Symulacja()
 {
 	std::cout << "================================= GRA W ZYCIE =================================" << std::endl;
