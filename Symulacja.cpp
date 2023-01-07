@@ -22,7 +22,7 @@ void Symulacja::Wyswietl_sterowanie()const
 	std::cout << "========================================= STEROWANIE =========================================" << std::endl;
 	std::cout << std::endl;
 	std::cout << "	ABY ZAKOﾑCZYﾆ OBECN･ SYMULACJﾊ ZAMKNIJ OKNO SYMULACJI" << std::endl;
-	std::cout << "	ABY OｯYWIﾆ/ZABIﾆ KOMORKﾊ NACI君IJ NA NI･ LEWYM PRZYCISKIEM MYSZY W CZASIE PAUZY" << std::endl;
+	std::cout << "	ABY OｯYWIﾆ/ZABIﾆ KOMﾓRKﾊ NACI君IJ NA NI･ LEWYM PRZYCISKIEM MYSZY W CZASIE PAUZY" << std::endl;
 	std::cout << "	ABY ZATRZYMAﾆ/WZNOWIﾆ SYMULACJﾊ WCI君IJ KLAWISZ 'P'" << std::endl;
 	std::cout << "	ABY ZWIﾊKSZYﾆ/ZMNIEJSZYﾆ OPﾓZNIENIE WCI君IJ KLAWISZ STRZA｣KA GﾓRNA/DOLNA" << std::endl;
 	std::cout << std::endl;
