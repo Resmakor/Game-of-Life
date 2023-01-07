@@ -13,9 +13,8 @@ public:
 	Symulacja();
 	bool Czy_same_cyfry(std::string& wejscie)const;
 	void Pobierz_poprawne_parametry();
-	void Wyswietl_sterowanie()const;
-	void Wczytaj(int &parametr);
-	bool Sprawdz_rozdzielczosc(int liczba, int rozmiar)const;
+	void Wczytaj(int& parametr);
 	int Zalecany_rozmiar_komorki(int liczba_komorek)const;
+	void Wyswietl_sterowanie()const;
 	void Symuluj();
 };

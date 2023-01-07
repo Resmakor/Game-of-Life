@@ -6,6 +6,7 @@
 #include <Windows.h>
 
 #define ZMIANA_OPOZNIENIA 50
+#define MAKS_OPOZNIENIE 2500
 #define SZARY sf::Color(58, 58, 58)
 #define CZARNY sf::Color::Black
 #define ZIELONY sf::Color(0, 255, 127)

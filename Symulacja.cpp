@@ -1,65 +1,9 @@
 #include "Symulacja.h"
 
-bool Symulacja::Sprawdz_rozdzielczosc(int liczba, int rozmiar)const
+Symulacja::Symulacja()
 {
-	int szerokosc = sf::VideoMode::getDesktopMode().width;
-	int wysokosc = sf::VideoMode::getDesktopMode().height;
-	int pomnozone = liczba * rozmiar;
-	return pomnozone < szerokosc && pomnozone < wysokosc;
-}
-
-int Symulacja::Zalecany_rozmiar_komorki(int liczba_komorek)const
-{
-	if (liczba_komorek < 2) return 0;
-	int min = std::min(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height);
-	min *= 0.9;
-	return  min / liczba_komorek;
-}
-
-void Symulacja::Wyswietl_sterowanie()const
-{
-	system("cls");
-	std::cout << "========================================= STEROWANIE =========================================" << std::endl;
-	std::cout << std::endl;
-	std::cout << "	ABY ZAKOﾑCZYﾆ OBECN･ SYMULACJﾊ ZAMKNIJ OKNO SYMULACJI" << std::endl;
-	std::cout << "	ABY OｯYWIﾆ/ZABIﾆ KOMﾓRKﾊ NACI君IJ NA NI･ LEWYM PRZYCISKIEM MYSZY W CZASIE PAUZY" << std::endl;
-	std::cout << "	ABY ZATRZYMAﾆ/WZNOWIﾆ SYMULACJﾊ WCI君IJ KLAWISZ 'P'" << std::endl;
-	std::cout << "	ABY ZWIﾊKSZYﾆ/ZMNIEJSZYﾆ OPﾓZNIENIE WCI君IJ KLAWISZ STRZA｣KA GﾓRNA/DOLNA" << std::endl;
-	std::cout << std::endl;
-	std::cout << "==============================================================================================" << std::endl;
-}
-
-bool Symulacja::Czy_same_cyfry(std::string& wejscie)const
-{
-	int dlugosc_wejscia = wejscie.size();
-	if (dlugosc_wejscia == 0 || dlugosc_wejscia > 8) return false;
-	for (int i = 0; i < dlugosc_wejscia; i++)
-	{
-		if (wejscie[i] < '0' || wejscie[i] > '9')
-		{
-			return false;
-		}
-	}
-	return true;
-}
-
-void Symulacja::Wczytaj(int &parametr)
-{
-	while (true)
-	{
-		std::string wejscie;
-		std::getline(std::cin, wejscie);
-		if (wejscie == "STOP") exit(0);
-		else if (Czy_same_cyfry(wejscie))
-		{
-			parametr = std::stoi(wejscie);
-			break;
-		}
-		else
-		{
-			std::cout << "	B｣･D! PODAJ INN･ WARTO姑: ";
-		}
-	}
+	setlocale(LC_CTYPE, "Polish");
+	Pobierz_poprawne_parametry();
 }
 
 void Symulacja::Pobierz_poprawne_parametry()
@@ -83,23 +27,72 @@ void Symulacja::Pobierz_poprawne_parametry()
 	Wczytaj(komorki_do_wylosowania);
 	while (komorki_do_wylosowania < 0 || komorki_do_wylosowania > liczba_komorek * liczba_komorek)
 	{
-		std::cout << "	B｣･D! PODAJ INN･ WARTO姑:";
+		std::cout << "	B｣･D! PODAJ INN･ WARTO姑: ";
 		Wczytaj(liczba_komorek);
 	}
 
-	std::cout << "	PODAJ OPﾓZNIENIE MIﾊDZY KOLEJNYMI RUCHAMI (ms): ";
+	std::cout << "	PODAJ OPﾓZNIENIE MIﾊDZY KOLEJNYMI RUCHAMI (1 - " <<  MAKS_OPOZNIENIE << " ms): ";
 	Wczytaj(opoznienie_miedzy_ruchami);
-	while (opoznienie_miedzy_ruchami <= 0)
+	while (opoznienie_miedzy_ruchami < 1 || opoznienie_miedzy_ruchami > MAKS_OPOZNIENIE)
 	{
 		std::cout << "	B｣･D! PODAJ INN･ WARTO姑: ";
 		Wczytaj(opoznienie_miedzy_ruchami);
 	}
 }
 
-Symulacja::Symulacja()
+void Symulacja::Wczytaj(int& parametr)
 {
-	setlocale(LC_CTYPE, "Polish");
-	Pobierz_poprawne_parametry();
+	while (true)
+	{
+		std::string wejscie;
+		std::getline(std::cin, wejscie);
+		transform(wejscie.begin(), wejscie.end(), wejscie.begin(), ::toupper);
+		if (wejscie == "STOP") exit(0);
+		else if (Czy_same_cyfry(wejscie))
+		{
+			parametr = std::stoi(wejscie);
+			break;
+		}
+		else
+		{
+			std::cout << "	B｣･D! PODAJ INN･ WARTO姑: ";
+		}
+	}
+}
+
+bool Symulacja::Czy_same_cyfry(std::string& wejscie)const
+{
+	int dlugosc_wejscia = wejscie.size();
+	if (dlugosc_wejscia == 0 || dlugosc_wejscia > 8) return false;
+	for (int i = 0; i < dlugosc_wejscia; i++)
+	{
+		if (wejscie[i] < '0' || wejscie[i] > '9')
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+int Symulacja::Zalecany_rozmiar_komorki(int liczba_komorek)const
+{
+	if (liczba_komorek < 2) return 0;
+	int min = std::min(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height);
+	min *= 0.9;
+	return  min / liczba_komorek;
+}
+
+void Symulacja::Wyswietl_sterowanie()const
+{
+	system("cls");
+	std::cout << "========================================= STEROWANIE =========================================" << std::endl;
+	std::cout << std::endl;
+	std::cout << "	ABY ZAKOﾑCZYﾆ OBECN･ SYMULACJﾊ ZAMKNIJ OKNO SYMULACJI" << std::endl;
+	std::cout << "	ABY OｯYWIﾆ/ZABIﾆ KOMﾓRKﾊ NACI君IJ NA NI･ LEWYM PRZYCISKIEM MYSZY W CZASIE PAUZY" << std::endl;
+	std::cout << "	ABY ZATRZYMAﾆ/WZNOWIﾆ SYMULACJﾊ WCI君IJ KLAWISZ 'P'" << std::endl;
+	std::cout << "	ABY ZWIﾊKSZYﾆ/ZMNIEJSZYﾆ OPﾓZNIENIE WCI君IJ KLAWISZ STRZA｣KA GﾓRNA/DOLNA" << std::endl;
+	std::cout << std::endl;
+	std::cout << "==============================================================================================" << std::endl;
 }
 
 void Symulacja::Symuluj()
