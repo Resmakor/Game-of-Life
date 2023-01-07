@@ -28,6 +28,7 @@ Plansza::~Plansza()
     delete[] populacja_nastepna;
 }
 
+/* Metoda wybiera i losowych pól, które na starcie bêd¹ ¿ywe */
 void Plansza::Wybierz_i_losowych_pol(int i)
 {
     if (i == 0) return;
@@ -48,6 +49,7 @@ void Plansza::Wybierz_i_losowych_pol(int i)
     }
 }
 
+/* Metoda zwraca ile ¿ywych s¹siadów ma dana komórka */
 int Plansza::Ile_sasiadow(int x, int y)const
 {
     int sasiedzi = 0;
@@ -64,6 +66,7 @@ int Plansza::Ile_sasiadow(int x, int y)const
     return sasiedzi - int(populacja_obecna[x][y]);
 }
 
+/* Metoda s³u¿y do aktualizowania planszy wed³ug podanych zasad */
 void Plansza::Aktualizuj()
 {
     for (int i = 0; i < liczba_komorek; i++)
@@ -89,6 +92,7 @@ void Plansza::Aktualizuj()
     }
 }
 
+/* Metoda kopiuje zaktualizowan¹ populacjê */
 void Plansza::Kopiuj_populacje()
 {
     for (int i = 0; i < liczba_komorek; i++)
@@ -97,6 +101,7 @@ void Plansza::Kopiuj_populacje()
     }
 }
 
+/* Metoda zwraca komórkê z ju¿ ustawionymi atrybutami */
 sf::RectangleShape Plansza::Zwroc_komorke(int x, int y)const
 {
     sf::RectangleShape komorka;
@@ -108,6 +113,7 @@ sf::RectangleShape Plansza::Zwroc_komorke(int x, int y)const
     return komorka;
 }
 
+/* Metoda wyœwietla populacjê */
 void Plansza::Wyswietl_populacje(sf::RenderWindow& okno)const
 {
     for (int i = 0; i < liczba_komorek; i++)
@@ -122,6 +128,7 @@ void Plansza::Wyswietl_populacje(sf::RenderWindow& okno)const
     }
 }
 
+/* G³ówna metoda, zajmuje siê ca³¹ logik¹ i oknem symulacji */
 void Plansza::Inicjalizuj()
 {
     sf::RenderWindow okno(sf::VideoMode(rozmiar_komorki * liczba_komorek, rozmiar_komorki * liczba_komorek), "Gra w Zycie - zapauzowano " + std::to_string(opoznienie) + " ms opoznienia", sf::Style::Titlebar | sf::Style::Close);

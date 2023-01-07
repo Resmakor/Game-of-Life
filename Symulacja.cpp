@@ -6,8 +6,9 @@ Symulacja::Symulacja()
 	Pobierz_poprawne_parametry();
 }
 
+/* Metoda pobiera poprawne parametry symulacji od u¿ytkownika */
 void Symulacja::Pobierz_poprawne_parametry()
-{
+{	
 	system("cls");
 	std::cout << "========================================= GRA W ¯YCIE =========================================" << std::endl;
 	std::cout << std::endl;
@@ -40,6 +41,7 @@ void Symulacja::Pobierz_poprawne_parametry()
 	}
 }
 
+/* Metoda wczytuje poprawne dane wejœciowe tj. liczbê */
 void Symulacja::Wczytaj(int& parametr)
 {
 	while (true)
@@ -60,6 +62,7 @@ void Symulacja::Wczytaj(int& parametr)
 	}
 }
 
+/* Metoda zwraca czy w zmiennej typu string znajduj¹ siê same cyfry */
 bool Symulacja::Czy_same_cyfry(std::string& wejscie)const
 {
 	int dlugosc_wejscia = wejscie.size();
@@ -74,6 +77,7 @@ bool Symulacja::Czy_same_cyfry(std::string& wejscie)const
 	return true;
 }
 
+/* Metoda zwraca optymalny rozmiar pojedynczej komórki (px) */
 int Symulacja::Zalecany_rozmiar_komorki(int liczba_komorek)const
 {
 	if (liczba_komorek < 2) return 0;
@@ -82,6 +86,7 @@ int Symulacja::Zalecany_rozmiar_komorki(int liczba_komorek)const
 	return  min / liczba_komorek;
 }
 
+/* Metoda wyœwietla w jaki sposób sterowaæ symulacj¹ */
 void Symulacja::Wyswietl_sterowanie()const
 {
 	system("cls");
@@ -95,6 +100,7 @@ void Symulacja::Wyswietl_sterowanie()const
 	std::cout << "==============================================================================================" << std::endl;
 }
 
+/* Metoda wyœwietla sterowanie, a nastêpnie rozpoczyna symulacjê */
 void Symulacja::Symuluj()
 {
 	Wyswietl_sterowanie();
