@@ -2,7 +2,10 @@
 
 int main()
 {
-    Symulacja symulacja;
-    symulacja.Symuluj();
+    while (true)
+    {
+        Symulacja symulacja;
+        symulacja.Symuluj();
+    }
     return 0;
 }

@@ -10,7 +10,7 @@
 #define CZARNY sf::Color::Black
 #define ZIELONY sf::Color(0, 255, 127)
 #define BIALY sf::Color(255, 250, 250)
-#define OUTLINE_THICKNESS 1
+#define GRUBOSC_OBRAMOWANIA 1
 
 class Plansza
 {

@@ -4,8 +4,8 @@
 Plansza::Plansza(int ile_komorek, int jaki_rozmiar_komorki, int opoznienie) : liczba_komorek(ile_komorek), rozmiar_komorki(jaki_rozmiar_komorki)
 {
    this->opoznienie = opoznienie;
-   vector.x = rozmiar_komorki - OUTLINE_THICKNESS;
-   vector.y = rozmiar_komorki - OUTLINE_THICKNESS;
+   vector.x = rozmiar_komorki - GRUBOSC_OBRAMOWANIA;
+   vector.y = rozmiar_komorki - GRUBOSC_OBRAMOWANIA;
    populacja_obecna = new bool* [liczba_komorek];
    populacja_nastepna = new bool* [liczba_komorek];
    czy_zapauzowano = true;
@@ -31,10 +31,7 @@ Plansza::~Plansza()
 
 void Plansza::Wybierz_i_losowych_pol(int i)
 {
-    if (i == 0)
-    {
-        return;
-    }
+    if (i == 0) return;
     srand(time(0));
     int licznik_zywych_pol = 0, temp_x, temp_y;
     while (licznik_zywych_pol != i)
@@ -104,7 +101,7 @@ sf::RectangleShape Plansza::Zwroc_komorke(int x, int y)const
     sf::RectangleShape komorka;
     komorka.setPosition(x * rozmiar_komorki, y * rozmiar_komorki);
     komorka.setSize(vector);
-    komorka.setOutlineThickness(OUTLINE_THICKNESS);
+    komorka.setOutlineThickness(GRUBOSC_OBRAMOWANIA);
     komorka.setOutlineColor(CZARNY);
     komorka.setFillColor(ZIELONY);
     return komorka;
