@@ -1,6 +1,5 @@
 #include "Plansza.h"
 
-
 Plansza::Plansza(int ile_komorek, int jaki_rozmiar_komorki, int opoznienie) : liczba_komorek(ile_komorek), rozmiar_komorki(jaki_rozmiar_komorki)
 {
    this->opoznienie = opoznienie;
@@ -140,7 +139,7 @@ void Plansza::Inicjalizuj()
                 int y = float(event.mouseButton.y) / rozmiar_komorki;
                 if (x >= 0 && x < liczba_komorek && y >= 0 && y < liczba_komorek)
                 {
-                    this->populacja_obecna[x][y] = !(this->populacja_obecna[x][y]);
+                    populacja_obecna[x][y] = !(populacja_obecna[x][y]);
                 }
             }
 
