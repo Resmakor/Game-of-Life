@@ -1,6 +1,5 @@
 #include "Symulacja.h"
 
-
 bool Symulacja::Sprawdz_rozdzielczosc(int liczba, int rozmiar)const
 {
 	int szerokosc = sf::VideoMode::getDesktopMode().width;
@@ -20,12 +19,14 @@ int Symulacja::Zalecany_rozmiar_komorki(int liczba_komorek)const
 void Symulacja::Wyswietl_sterowanie()const
 {
 	system("cls");
-	std::cout << "================================= STEROWANIE =================================" << std::endl;
+	std::cout << "========================================= STEROWANIE =========================================" << std::endl;
 	std::cout << std::endl;
-	std::cout << "	ABY OZYWIC/ZABIC KOMORKE NACISNIJ NA NIA LEWYM PRZYCISKIEM MYSZY W CZASIE PAUZY" << std::endl;
-	std::cout << "	ABY ZATRZYMAC/WZNOWIC SYMULACJE WCISNIJ KLAWISZ 'P'" << std::endl;
-	std::cout << "	ABY ZWIEKSZYC/ZMNIEJSZYC OPOZNIENIE WCISNIJ KLAWISZ STRZALKA GORNA/DOLNA" << std::endl;
-	std::cout << "===============================================================================" << std::endl;
+	std::cout << "	ABY ZAKOÑCZYÆ OBECN¥ SYMULACJÊ ZAMKNIJ OKNO SYMULACJI" << std::endl;
+	std::cout << "	ABY O¯YWIÆ/ZABIÆ KOMORKÊ NACIŒNIJ NA NI¥ LEWYM PRZYCISKIEM MYSZY W CZASIE PAUZY" << std::endl;
+	std::cout << "	ABY ZATRZYMAÆ/WZNOWIÆ SYMULACJÊ WCIŒNIJ KLAWISZ 'P'" << std::endl;
+	std::cout << "	ABY ZWIÊKSZYÆ/ZMNIEJSZYÆ OPÓZNIENIE WCIŒNIJ KLAWISZ STRZA£KA GÓRNA/DOLNA" << std::endl;
+	std::cout << std::endl;
+	std::cout << "==============================================================================================" << std::endl;
 }
 
 bool Symulacja::Czy_same_cyfry(std::string& wejscie)const
@@ -56,7 +57,7 @@ void Symulacja::Wczytaj(int &parametr)
 		}
 		else
 		{
-			std::cout << "	BLAD! PODAJ INNA WARTOSC: ";
+			std::cout << "	B£¥D! PODAJ INN¥ WARTOŒÆ: ";
 		}
 	}
 }
@@ -64,38 +65,40 @@ void Symulacja::Wczytaj(int &parametr)
 void Symulacja::Pobierz_poprawne_parametry()
 {
 	system("cls");
-	std::cout << "================================= GRA W ZYCIE =================================" << std::endl;
-	std::cout << "	WPISZ 'STOP' ABY ZAKONCZYC PROGRAM " << std::endl;
+	std::cout << "========================================= GRA W ¯YCIE =========================================" << std::endl;
+	std::cout << std::endl;
+	std::cout << "				WPISZ 'STOP' ABY ZAKOÑCZYÆ PROGRAM " << std::endl;
 	std::cout << std::endl;
 
-	std::cout << "	PODAJ LICZBE KOMOREK W RZEDZIE (ZALECANA LICZBA 3 - 200): ";
+	std::cout << "	PODAJ LICZBÊ KOMÓREK W RZÊDZIE (ZALECANA LICZBA 3 - 200): ";
 	Wczytaj(liczba_komorek);
 	while (liczba_komorek < 2 || Zalecany_rozmiar_komorki(liczba_komorek) < 2)
 	{
-		std::cout << "	BLAD! PODAJ INNA WARTOSC: ";
+		std::cout << "	B£¥D! PODAJ INN¥ WARTOŒÆ: ";
 		Wczytaj(liczba_komorek);
 	}
 	rozmiar_komorki = Zalecany_rozmiar_komorki(liczba_komorek);
 
-	std::cout << "	PODAJ ILE ZYJACYCH KOMOREK WYLOSOWAC (0 - " << liczba_komorek * liczba_komorek << "): ";
+	std::cout << "	PODAJ ILE ¯YJ¥CYCH KOMOREK WYLOSOWAÆ (0 - " << liczba_komorek * liczba_komorek << "): ";
 	Wczytaj(komorki_do_wylosowania);
 	while (komorki_do_wylosowania < 0 || komorki_do_wylosowania > liczba_komorek * liczba_komorek)
 	{
-		std::cout << "	BLAD! PODAJ INNA WARTOSC: ";
+		std::cout << "	B£¥D! PODAJ INN¥ WARTOŒÆ:";
 		Wczytaj(liczba_komorek);
 	}
 
-	std::cout << "	PODAJ OPOZNIENIE MIEDZY KOLEJNYMI RUCHAMI (ms): ";
+	std::cout << "	PODAJ OPÓZNIENIE MIÊDZY KOLEJNYMI RUCHAMI (ms): ";
 	Wczytaj(opoznienie_miedzy_ruchami);
 	while (opoznienie_miedzy_ruchami <= 0)
 	{
-		std::cout << "	BLAD! PODAJ INNA WARTOSC: ";
+		std::cout << "	B£¥D! PODAJ INN¥ WARTOŒÆ: ";
 		Wczytaj(opoznienie_miedzy_ruchami);
 	}
 }
 
 Symulacja::Symulacja()
 {
+	setlocale(LC_CTYPE, "Polish");
 	Pobierz_poprawne_parametry();
 }
 
