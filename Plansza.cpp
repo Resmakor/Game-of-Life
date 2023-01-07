@@ -3,11 +3,11 @@
 Plansza::Plansza(int ile_komorek, int jaki_rozmiar_komorki, int opoznienie) : liczba_komorek(ile_komorek), rozmiar_komorki(jaki_rozmiar_komorki)
 {
    this->opoznienie = opoznienie;
+   czy_zapauzowano = true;
    vector.x = rozmiar_komorki - GRUBOSC_OBRAMOWANIA;
    vector.y = rozmiar_komorki - GRUBOSC_OBRAMOWANIA;
    populacja_obecna = new bool* [liczba_komorek];
    populacja_nastepna = new bool* [liczba_komorek];
-   czy_zapauzowano = true;
    for (int i = 0; i < liczba_komorek; i++)
    {
        populacja_obecna[i] = new bool[liczba_komorek];
@@ -75,10 +75,12 @@ void Plansza::Aktualizuj()
             {
                 populacja_nastepna[i][j] = true;
             }
+
             else if ((liczba_sasiadow == 2 || liczba_sasiadow == 3) && populacja_obecna[i][j])
             {
                 populacja_nastepna[i][j] = true;
             }
+
             else
             {
                 populacja_nastepna[i][j] = false;
@@ -147,10 +149,13 @@ void Plansza::Inicjalizuj()
             {
                 czy_zapauzowano = !czy_zapauzowano;
             }
-
+            
             else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Up)
             {
-                opoznienie += ZMIANA_OPOZNIENIA;
+                if (opoznienie + ZMIANA_OPOZNIENIA <= MAKS_OPOZNIENIE)
+                {
+                    opoznienie += ZMIANA_OPOZNIENIA;
+                }
             }
 
             else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Down)
