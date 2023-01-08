@@ -31,7 +31,7 @@ Plansza::~Plansza()
 /* Metoda wybiera i losowych pól, które na starcie bêd¹ ¿ywe */
 void Plansza::Wybierz_i_losowych_pol(int i)
 {
-    if (i == 0) return;
+    if (i == 0 || i > liczba_komorek * liczba_komorek) return;
     srand(time(0));
     int licznik_zywych_pol = 0, temp_x, temp_y;
     while (licznik_zywych_pol != i)

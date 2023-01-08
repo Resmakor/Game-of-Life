@@ -29,7 +29,7 @@ void Symulacja::Pobierz_poprawne_parametry()
 	while (komorki_do_wylosowania < 0 || komorki_do_wylosowania > liczba_komorek * liczba_komorek)
 	{
 		std::cout << "	B£¥D! PODAJ INN¥ WARTOŒÆ: ";
-		Wczytaj(liczba_komorek);
+		Wczytaj(komorki_do_wylosowania);
 	}
 
 	std::cout << "	PODAJ OPÓZNIENIE MIÊDZY KOLEJNYMI RUCHAMI (1 - " <<  MAKS_OPOZNIENIE << " ms): ";
