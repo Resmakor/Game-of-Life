@@ -14,12 +14,12 @@
 
 class Board
 {
-	int delay;
 	const int number_of_cells;
 	const int cell_size;
+	int delay;
+	bool paused;
 	bool **current_population;
 	bool **next_population;
-	bool paused;
 	sf::Vector2f vector;
 public:
 	Board(int how_many_cells=15, int what_size_cell=30, int delay=1);
