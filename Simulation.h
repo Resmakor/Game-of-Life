@@ -1,7 +1,6 @@
 #pragma once
 #include "Board.h"
 #include <string>
-#include <locale.h>
 
 class Simulation
 {
