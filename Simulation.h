@@ -16,5 +16,5 @@ public:
 	void Display_control()const;
 	void Simulate();
 	bool Just_digits(std::string& input)const;
-	int Suggested_cell_size(int number_of_cells)const;
+	int Suggested_cell_size(int how_many_cells)const;
 };

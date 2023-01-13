@@ -77,12 +77,12 @@ bool Simulation::Just_digits(std::string& input)const
 }
 
 /* The method returns the optimal size of a single cell (px) */
-int Simulation::Suggested_cell_size(int number_of_cells)const
+int Simulation::Suggested_cell_size(int how_many_cells)const
 {
-	if (number_of_cells < 2) return 0;
+	if (how_many_cells < 2) return 0;
 	int minimal = std::min(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height);
 	minimal *= 0.9;
-	return  minimal / number_of_cells;
+	return  minimal / how_many_cells;
 }
 
 /* The method displays how to control the simulation */
