@@ -14,7 +14,7 @@ void Simulation::Get_correct_parameters()
 	std::cout << "				TYPE 'STOP' TO END THE PROGRAM " << std::endl;
 	std::cout << std::endl;
 
-	std::cout << "	SPECIFY THE NUMBER OF CELLS IN A ROW (RECOMMENDED NUMBER 3 - 200): ";
+	std::cout << "	ENTER THE NUMBER OF CELLS IN A ROW (RECOMMENDED NUMBER 3 - 200): ";
 	Load(number_of_cells);
 	while (number_of_cells < 2 || Suggested_cell_size(number_of_cells) < 2)
 	{
@@ -80,9 +80,9 @@ bool Simulation::Just_digits(std::string& input)const
 int Simulation::Suggested_cell_size(int number_of_cells)const
 {
 	if (number_of_cells < 2) return 0;
-	int min = std::min(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height);
-	min *= 0.9;
-	return  min / number_of_cells;
+	int minimal = std::min(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height);
+	minimal *= 0.9;
+	return  minimal / number_of_cells;
 }
 
 /* The method displays how to control the simulation */
