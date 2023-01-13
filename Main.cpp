@@ -1,11 +1,11 @@
-#include "Symulacja.h"
+#include "Simulation.h"
 
 int main()
 {
     while (true)
     {
-        Symulacja symulacja;
-        symulacja.Symuluj();
+        Simulation simulation;
+        simulation.Simulate();
     }
     return 0;
 }
