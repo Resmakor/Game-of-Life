@@ -10,9 +10,9 @@ class Simulation
 	int delay;
 	void Get_correct_parameters();
 	void Load(int& parameter);
-	void Display_control()const;
 	bool Just_digits(std::string& input)const;
 	int Suggested_cell_size(int how_many_cells)const;
+	void Display_control()const;
 public:
 	Simulation();
 	void Simulate();
