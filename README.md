@@ -1,181 +1,182 @@
 # Game of Life
- Conway's Game of Life - made for C++ Project at Rzeszów University of Technology
+
+Conway's Game of Life - made for C++ Project at Rzeszow University of Technology.
 
 #
-# Sterowanie symulacją
-- Aby zakończyć program należy zamknąć okno konsoli albo napisać ```STOP```.
-- Aby zatrzymać symulację lub ją wznowić należy wcisnąć klawisz ```P``` na klawiaturze.
-- Aby ożywić lub zabić komórkę należy nacisnąć na komórkę lewym przyciskiem myszy gdy symulacja jest wstrzymana.
-- Aby zwiększyć opóźnienie między ruchami należy wcisnąć górną strzałkę na klawiaturze.
-- Aby zmniejszyć opóźnienie między ruchami należy wcisnąć dolną strzałkę na klawiaturze.
-- Aby wyjść z obecnej symulacji należy zamknąć okno symulacji. Po tym będzie możliwe zainicjalizowanie nowej symulacji z innymi parametrami.
+# Simulation control
+- To exit the program, close the console window or write ``STOP``.
+- To pause the simulation or resume it, press the ``P`` key on the keyboard.
+- To revive or kill a cell, press the left mouse button on the cell when the simulation is paused.
+- To increase the delay between moves, press the upper arrow on the keyboard.
+- To decrease the delay between moves, press the down arrow on the keyboard.
+- To exit the current simulation, close the simulation window. After that it will be possible to initialize a new simulation with different parameters.
 
 #
 
-# Klasa ```Simulation```
+# Class ```Simulation```
 
-## Publiczne metody
+## Public methods
 
 ```cpp
 Simulation();
 ```
-- Konstruktor domyślny.
+- The default constructor.
 ```cpp
 void Simulate();
 ```
-- Wyświetla sterowanie i inicjalizuje symulację obiektem ```Board```.
+- Displays the control and initializes the simulation with the ``Board`` object.
 #
-## Prywatne metody
+## Private methods
 
 ```cpp
 void Get_correct_parameters();
 ```
-- Pobiera poprawne parametry symulacji od użytkownika.
+- Gets the correct simulation parameters from the user.
 
 ```cpp
 void Load(int& parameter);
 ```
-- Pomaga w pobieraniu poprawnych parametrów od użytkownika, ustawia poprawny parametr poprzez referencję.
+- Helps to get the correct parameters from the user, sets the correct parameter by reference.
 
 ```cpp
 bool Just_digits(std::string& input)const;
 ```
-- Zwraca ```true``` jeżeli napis podany na wejściu zawiera tylko cyfry, ```false``` w przeciwnym wypadku.
+- Returns ``true`` if the text given in the input contains only digits, ``false`` otherwise.
 
 ```cpp
 int Suggested_cell_size(int how_many_cells)const;
 ```
-- Zwraca najbardziej optymalny rozmiar pojedynczej komórki w pikselach dla podanej liczby komórek w rzędzie (```how_many_cells```).
+- Returns the most optimal single cell size in pixels for the given number of cells in a row (``how_many_cells``).
 ```cpp
 void Display_control()const;
 ```
-- Wyświetla sterowanie symulacją.
+- Displays simulation control.
 #
 
-## Prywatne pola
+## Private members
 
 ```cpp
 int cell_size;
 ```
-- Informacja o rozmiarze komórki w pikselach.
+- Information about the size of the cell in pixels.
 ```cpp
 int number_of_cells;
 ```
-- Informacja o liczbie komórek.
+- Information about the number of cells.
 ```cpp
 int cells_to_draw;
 ```
-- Informacja o liczbie żyjących komórek do wylosowania.
+- Information about the number of living cells to be drawn.
 ```cpp
 int delay;
 ```
-- Informacja o opóźnieniu między ruchami.
+- Information about the delay between movements.
 
 #
 
-# Klasa ```Board```
+# Class ```Board```
 
-## Stałe
+## Constants
 ```cpp
 #define CHANGE_OF_DELAY 50
 ```
-- Zmiana opóźnienia o 50 ms.
+- Change in delay by 50 ms.
 ```cpp
 #define MAX_DELAY 2500
 ```
-- Maksymalne opóźnienie (2500 ms).
+- Maximum delay (2500 ms).
 ```cpp
 #define GRAY sf::Color(58, 58, 58)
 ```
-- Kolor szary.
+- Gray color.
 ```cpp
 #define BLACK sf::Color::Black
 ```
-- Kolor czarny.
+- Black color.
 ```cpp
 #define GREEN sf::Color(0, 255, 127)
 ```
-- Kolor zielony.
+- Green color.
 ```cpp
 #define OUTLINE_THICKNESS 1
 ```
-- Grubość obramowania (1 piksel).
+- Outline thickness (1 pixel).
 #
 
 
-## Publiczne metody
+## Public methods
 ```cpp
 Board(int how_many_cells=15, int what_size_cell=30, int delay=1);
 ```
-- Konstruktor domyślny - inicjalizuje odpowiednie zmienne i tablice dwuwymiarowe. W argumentach przyjmuję liczbę komórek w rzędzie (domyślnie 15), rozmiar komórki (w pikselach, domyślnie 30) oraz opóźnienie między ruchami (domyślnie 1 ms).
+- The default constructor - initializes the appropriate variables and two-dimensional arrays. In its arguments, it takes the number of cells in a row (15 by default), the size of the cell (in pixels, 30 by default) and the delay between moves (1 ms by default).
 ```cpp
 ~Board();
 ```
-- Destruktor - zwalnia z pamięci wcześniej zainicjalizowane tablice dwuwymiarowe.
+- Destructor - releases previously initialized two-dimensional arrays from memory.
 ```cpp
 void Choose_random_fields(int fields);
 ```
-- Wybiera ```fields``` komórek, które początkowo będą żyć.
+- Selects ``fields`` of cells that will initially live.
 ```cpp
 void Initialize();
 ```
-- Główna metoda, zajmuje się całą logiką i oknem symulacji.
+- The main method, takes care of all the logic and the simulation window.
 
 #
 
-## Prywatne metody
+## Private methods
 ```cpp
 void Show_population(sf::RenderWindow& window)const;
 ```
-- Wyświetla populację w oknie.
+- Displays the population in the window.
 ```cpp
 void Update();
 ```
-- Tworzy planszę, która będzie wyświetlona w kolejnym kroku symulacji.
+- Creates a board that will be displayed in the next step of the simulation.
 ```cpp
 void Copy_population();
 ```
-- Kopiuje planszę stworzoną w metodzie ```Update``` do obecnie wyświetlanej w oknie.
+- Copies the board created in the ``Update`` method to the one currently displayed in the window.
 ```cpp
 sf::RectangleShape Return_cell(int x, int y)const;
 ```
-- Zwraca komórkę o współrzędnych ```x```, ```y``` typu ```sf::RectangleShape``` z ustawionymi już atrybutami.
+- Returns a cell with ```x```, ```y``` coordinates of type ``sf::RectangleShape`` with attributes already set.
 ```cpp
 int Number_of_neighbors(int x, int y)const;
 ```
-- Zwraca liczbę żyjących sąsiadów komórki o współrzędnych ```x```, ```y```.
+- Returns the number of living neighbors of the cell with coordinates ```x```, ```y```.
 #
 
 
-## Prywatne pola
+## Private members
 ```cpp
 const int number_of_cells;
 ```
-- Informacja o liczbie komórek w rzędzie.
+- Information about the number of cells in a row.
 ```cpp
 const int cell_size;
 ```
-- Informacja o rozmiarze pojedynczej komórki w pikselach.
+- Information about the size of a single cell in pixels.
 ```cpp
 int delay;
 ```
-- Informacja o opóźnieniu między ruchami.
+- Information about the delay between movements.
 ```cpp
 bool paused;
 ```
-- Informacja o tym czy symulacja jest wstrzymana.
+- Information on whether the simulation is paused.
 ```cpp
 bool **current_population;
 ```
-- Dynamiczna tablica dwuwymiarowa przechowująca informację o komórkach.
+- A dynamic two-dimensional array that stores cell information.
 ```cpp
 bool **next_population;
 ```
-- Dynamiczna tablica dwuwymiarowa potrzebna by stworzyć planszę, która zostanie wyświetlona w kolejnym kroku symulacji.
+- A dynamic two-dimensional array needed to create the board that will be displayed in the next step of the simulation.
 
 ```cpp
 sf::Vector2f vector;
 ```
-- Używane, by ustawić rozmiar komórki w oknie symulacji.
+- Used to set the cell size in the simulation window.
 
 #
