@@ -3,7 +3,7 @@
 
 #
 
-# Simulation
+# Klasa ```Simulation```
 
 ## Publiczne metody
 
@@ -64,7 +64,7 @@ int delay;
 
 #
 
-# Board
+# Klasa ```Board```
 
 ## Publiczne metody
 ```cpp
@@ -72,11 +72,11 @@ Board(int how_many_cells=15, int what_size_cell=30, int delay=1);
 ```
 - Konstruktor domyślny.
 ```cpp
-	~Board();
+~Board();
 ```
-- Destruktor.
+- Destruktor, zwalnia z pamięci wcześniej zainicjalizowane tablice dwuwymiarowe.
 ```cpp
-	void Choose_random_fields(int fields);
+void Choose_random_fields(int fields);
 ```
 - Wybiera ```fields``` komórek, które początkowo będą żyć.
 ```cpp
