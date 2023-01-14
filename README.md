@@ -2,6 +2,15 @@
  Conway's Game of Life - made for C++ Project at Rzeszów University of Technology
 
 #
+# Sterowanie symulacją
+- Aby zakończyć program należy zamknąć okno konsoli albo napisać ```STOP```.
+- Aby zatrzymać symulację lub ją wznowić należy wcisnąć klawisz ```P``` na klawiaturze.
+- Aby ożywić lub zabić komórkę należy nacisnąć na komórkę lewym przyciskiem myszy gdy symulacja jest wstrzymana.
+- Aby zwiększyć opóźnienie między ruchami należy wcisnąć górną strzałkę na klawiaturze.
+- Aby zmniejszyć opóźnienie między ruchami należy wcisnąć dolną strzałkę na klawiaturze.
+- Aby wyjść z obecnej symulacji należy zamknąć okno symualacji. Po tym będzie możliwe inicjalizowanie nowej symulacji z innymi parametrami.
+
+#
 
 # Klasa ```Simulation```
 
@@ -26,7 +35,7 @@ void Get_correct_parameters();
 ```cpp
 void Load(int& parameter);
 ```
-- Pomaga w pobieraniu poprawnych parametrów od użytkownika.
+- Pomaga w pobieraniu poprawnych parametrów od użytkownika, ustawia poprawny parametr do którego podana jest referencja.
 
 ```cpp
 bool Just_digits(std::string& input)const;
@@ -36,7 +45,7 @@ bool Just_digits(std::string& input)const;
 ```cpp
 int Suggested_cell_size(int how_many_cells)const;
 ```
-- Zwraca najbardziej optymalny rozmiar pojedynczej komórki w pikselach.
+- Zwraca najbardziej optymalny rozmiar pojedynczej komórki w pikselach dla podanej liczby komórek w rzędzie.
 ```cpp
 void Display_control()const;
 ```
@@ -70,11 +79,11 @@ int delay;
 ```cpp
 Board(int how_many_cells=15, int what_size_cell=30, int delay=1);
 ```
-- Konstruktor domyślny.
+- Konstruktor domyślny - inicjalizuje odpowiednie zmienne i tablice dwuwymiarowe. W argumentach przyjmuję liczbę komórek w rzędzie, rozmiar komórki (w pikselach) oraz opóźnienie między ruchami.
 ```cpp
 ~Board();
 ```
-- Destruktor, zwalnia z pamięci wcześniej zainicjalizowane tablice dwuwymiarowe.
+- Destruktor - zwalnia z pamięci wcześniej zainicjalizowane tablice dwuwymiarowe.
 ```cpp
 void Choose_random_fields(int fields);
 ```
