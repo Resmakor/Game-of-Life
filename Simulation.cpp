@@ -48,7 +48,10 @@ void Simulation::Load(int& parameter)
 		std::string input;
 		std::getline(std::cin, input);
 		transform(input.begin(), input.end(), input.begin(), ::toupper);
-		if (input == "STOP") exit(0);
+		if (input == "STOP")
+		{
+			exit(0);
+		}
 		else if (Just_digits(input))
 		{
 			parameter = std::stoi(input);
@@ -65,7 +68,10 @@ void Simulation::Load(int& parameter)
 bool Simulation::Just_digits(std::string& input)const
 {
 	int input_size = input.size();
-	if (input_size == 0 || input_size > 8) return false;
+	if (input_size == 0 || input_size > 8)
+	{
+		return false;
+	}
 	for (int i = 0; i < input_size; i++)
 	{
 		if (input[i] < '0' || input[i] > '9')
@@ -79,7 +85,10 @@ bool Simulation::Just_digits(std::string& input)const
 /* The method returns the optimal size of a single cell (px) */
 int Simulation::Suggested_cell_size(int how_many_cells)const
 {
-	if (how_many_cells < 2) return 0;
+	if (how_many_cells < 2)
+	{
+		return 0;
+	}
 	int minimal = std::min(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height);
 	minimal *= 0.9;
 	return  minimal / how_many_cells;

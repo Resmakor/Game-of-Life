@@ -78,12 +78,10 @@ void Board::Update()
             {
                 next_population[x][y] = true;
             }
-
             else if ((neighbors == 2 || neighbors == 3) && current_population[x][y])
             {
                 next_population[x][y] = true;
             }
-
             else
             {
                 next_population[x][y] = false;
@@ -141,7 +139,6 @@ void Board::Initialize()
             {
                 window.close();
             }
-
             else if (paused && event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonReleased)
             {
                 int x = float(event.mouseButton.x) / cell_size;
@@ -151,12 +148,10 @@ void Board::Initialize()
                     current_population[x][y] = !(current_population[x][y]);
                 }
             }
-
             else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::P)
             {
                 paused = !paused;
             }
-            
             else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Up)
             {
                 if (delay + CHANGE_OF_DELAY <= MAX_DELAY)
@@ -164,14 +159,12 @@ void Board::Initialize()
                     delay += CHANGE_OF_DELAY;
                 }
             }
-
             else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Down)
             {
                 if (delay > CHANGE_OF_DELAY)
                 {
                     delay -= CHANGE_OF_DELAY;
                 }
-
                 else
                 {
                     delay = 1;
@@ -189,7 +182,6 @@ void Board::Initialize()
             window.display();
             sf::sleep(sf::milliseconds(delay));
         }
-
         else
         {
             window.setTitle("Game of Life - paused " + std::to_string(delay) + " ms delay");
