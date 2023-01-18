@@ -10,6 +10,7 @@ Conway's Game of Life - made for C++ Project at Rzeszow University of Technology
 - To increase the delay between moves, press the upper arrow on the keyboard.
 - To decrease the delay between moves, press the down arrow on the keyboard.
 - To exit the current simulation, close the simulation window. After that it will be possible to initialize a new simulation with different parameters.
+
 ![](https://github.com/Resmakor/Game-of-Life/blob/main/example.gif)
 #
 
