@@ -26,6 +26,17 @@ class Board
 	void Copy_population();
 	sf::RectangleShape Return_cell(int x, int y)const;
 	int Number_of_neighbors(int x, int y)const;
+	int Number_of_living_cells()const;
+	void Show_pattern_1(int x, int y);
+	void Show_pattern_2(int x, int y);
+	void Show_pattern_3(int x, int y);
+	void Show_pattern_4(int x, int y);
+	void Show_pattern_5(int x, int y);
+	void Show_pattern_6(int x, int y);
+	void Show_pattern_7(int x, int y);
+	void Show_pattern_8(int x, int y);
+	void Show_pattern_9(int x, int y);
+	void Show_pattern_0(int x, int y);
 public:
 	Board(int how_many_cells=15, int what_size_cell=30, int delay=1);
 	~Board();

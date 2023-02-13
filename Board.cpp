@@ -66,6 +66,22 @@ int Board::Number_of_neighbors(int x, int y)const
     return neighbors - int(current_population[x][y]);
 }
 
+/* Method returns number of living cells */
+int Board::Number_of_living_cells()const
+{
+    int alive = 0;
+    for (int x = 0; x < number_of_cells; x++)
+    {
+        for (int y = 0; y < number_of_cells; y++)
+        {
+            if (current_population[x][y])
+                alive++;
+        }
+    }
+    return alive;
+}
+
+
 /* The method is used to update the board according to the given rules */
 void Board::Update()
 {
@@ -129,7 +145,8 @@ void Board::Show_population(sf::RenderWindow& window)const
 /* Main method, takes care of all the logic and the simulation window */
 void Board::Initialize()
 {
-    sf::RenderWindow window(sf::VideoMode(cell_size * number_of_cells, cell_size * number_of_cells), "Game of Life - paused " + std::to_string(delay) + " ms delay", sf::Style::Titlebar | sf::Style::Close);
+    int living_cells = Number_of_living_cells();
+    sf::RenderWindow window(sf::VideoMode(cell_size * number_of_cells, cell_size * number_of_cells), "Game of Life - paused " + std::to_string(delay) + " ms delay , living cells: " + std::to_string(living_cells), sf::Style::Titlebar | sf::Style::Close);
     while (window.isOpen())
     {
         sf::Event event;
@@ -139,7 +156,7 @@ void Board::Initialize()
             {
                 window.close();
             }
-            else if (paused && event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonReleased)
+            else if (event.mouseButton.button == sf::Mouse::Left && event.type == sf::Event::MouseButtonReleased)
             {
                 int x = float(event.mouseButton.x) / cell_size;
                 int y = float(event.mouseButton.y) / cell_size;
@@ -170,23 +187,387 @@ void Board::Initialize()
                     delay = 1;
                 }
             }
+            else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num1)
+            {
+                sf::Vector2i mousePositionRelative = sf::Mouse::getPosition(window);
+                Show_pattern_1(mousePositionRelative.x / cell_size, mousePositionRelative.y / cell_size);
+            }
+            else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num2)
+            {
+                sf::Vector2i mousePositionRelative = sf::Mouse::getPosition(window);
+                Show_pattern_2(mousePositionRelative.x / cell_size, mousePositionRelative.y / cell_size);
+            }
+            else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num3)
+            {
+                sf::Vector2i mousePositionRelative = sf::Mouse::getPosition(window);
+                Show_pattern_3(mousePositionRelative.x / cell_size, mousePositionRelative.y / cell_size);
+            }
+            else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num4)
+            {
+                sf::Vector2i mousePositionRelative = sf::Mouse::getPosition(window);
+                Show_pattern_4(mousePositionRelative.x / cell_size, mousePositionRelative.y / cell_size);
+            }
+            else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num5)
+            {
+                sf::Vector2i mousePositionRelative = sf::Mouse::getPosition(window);
+                Show_pattern_5(mousePositionRelative.x / cell_size, mousePositionRelative.y / cell_size);
+            }
+            else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num6)
+            {
+                sf::Vector2i mousePositionRelative = sf::Mouse::getPosition(window);
+                Show_pattern_6(mousePositionRelative.x / cell_size, mousePositionRelative.y / cell_size);
+            }
+            else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num7)
+            {
+                sf::Vector2i mousePositionRelative = sf::Mouse::getPosition(window);
+                Show_pattern_7(mousePositionRelative.x / cell_size, mousePositionRelative.y / cell_size);
+            }
+            else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num8)
+            {
+                sf::Vector2i mousePositionRelative = sf::Mouse::getPosition(window);
+                Show_pattern_8(mousePositionRelative.x / cell_size, mousePositionRelative.y / cell_size);
+            }
+            else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num9)
+            {
+                sf::Vector2i mousePositionRelative = sf::Mouse::getPosition(window);
+                Show_pattern_9(mousePositionRelative.x / cell_size, mousePositionRelative.y / cell_size);
+            }
+            else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Num0)
+            {
+                sf::Vector2i mousePositionRelative = sf::Mouse::getPosition(window);
+                Show_pattern_0(mousePositionRelative.x / cell_size, mousePositionRelative.y / cell_size);
+            }
         }
 
         window.clear(GRAY);
         Show_population(window);
+        living_cells = Number_of_living_cells();
+        if (living_cells == 0)
+        {
+            paused = true;
+        }
         if (!paused)
         {
             Update();
             Copy_population();
-            window.setTitle("Game of Life " + std::to_string(delay) + " ms delay");
+            window.setTitle("Game of Life " + std::to_string(delay) + " ms delay, living cells: " + std::to_string(living_cells));
             window.display();
             sf::sleep(sf::milliseconds(delay));
         }
         else
         {
-            window.setTitle("Game of Life - paused " + std::to_string(delay) + " ms delay");
+            window.setTitle("Game of Life - paused " + std::to_string(delay) + " ms delay, living cells: " + std::to_string(living_cells));
             window.display();
         }
     }
 }
 
+
+/* Square */
+void Board::Show_pattern_1(int x, int y)
+{
+    if (x >= 0 && x < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x][y] = true;
+    if (x >= 0 && x < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x][y + 1] = true;
+    if (x + 1 >= 0 && x + 1 < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x + 1][y] = true;
+    if (x + 1 >= 0 && x + 1 < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x + 1][y + 1] = true;
+}
+
+/* Glider */
+void Board::Show_pattern_2(int x, int y)
+{
+    if (x >= 0 && x < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x][y] = true;
+    if (x >= 0 && x < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x][y + 1] = true;
+    if (x >= 0 && x < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x][y + 2] = false;
+
+    if (x + 1 >= 0 && x + 1 < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x + 1][y] = true;
+    if (x + 1 >= 0 && x + 1 < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x + 1][y + 1] = false;
+    if (x + 1 >= 0 && x + 1 < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x + 1][y + 2] = true;
+
+    if (x + 2 >= 0 && x + 2 < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x + 2][y] = true;
+    if (x + 2 >= 0 && x + 2 < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x + 2][y + 1] = false;
+    if (x + 2 >= 0 && x + 2 < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x + 2][y + 2] = false;
+}
+
+/* LWSS */
+void Board::Show_pattern_3(int x, int y)
+{
+    if (x >= 0 && x < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x][y] = false;
+    if (x >= 0 && x < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x][y + 1] = true;
+    if (x >= 0 && x < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x][y + 2] = true;
+    if (x >= 0 && x < number_of_cells && y + 3 >= 0 && y + 3 < number_of_cells)
+        current_population[x][y + 3] = true;
+
+
+    if (x + 1 >= 0 && x + 1 < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x + 1][y] = true;
+    if (x + 1 >= 0 && x + 1 < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x + 1][y + 1] = false;
+    if (x + 1 >= 0 && x + 1 < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x + 1][y + 2] = false;
+    if (x + 1 >= 0 && x + 1 < number_of_cells && y + 3 >= 0 && y + 3 < number_of_cells)
+        current_population[x + 1][y + 3] = true;
+
+    if (x + 2 >= 0 && x + 2 < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x + 2][y] = false;
+    if (x + 2 >= 0 && x + 2 < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x + 2][y + 1] = false;
+    if (x + 2 >= 0 && x + 2 < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x + 2][y + 2] = false;
+    if (x + 2 >= 0 && x + 2 < number_of_cells && y + 3 >= 0 && y + 3 < number_of_cells)
+        current_population[x + 2][y + 3] = true;
+
+    if (x + 3 >= 0 && x + 3 < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x + 3][y] = false;
+    if (x + 3 >= 0 && x + 3 < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x + 3][y + 1] = false;
+    if (x + 3 >= 0 && x + 3 < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x + 3][y + 2] = false;
+    if (x + 3 >= 0 && x + 3 < number_of_cells && y + 3 >= 0 && y + 3 < number_of_cells)
+        current_population[x + 3][y + 3] = true;
+
+    if (x + 4 >= 0 && x + 4 < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x + 4][y] = true;
+    if (x + 4 >= 0 && x + 4 < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x + 4][y + 1] = false;
+    if (x + 4 >= 0 && x + 4 < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x + 4][y + 2] = true;
+    if (x + 4 >= 0 && x + 4  < number_of_cells && y + 3 >= 0 && y + 3 < number_of_cells)
+        current_population[x + 4][y + 3] = false;
+
+}
+
+/* Frog */
+void Board::Show_pattern_4(int x, int y)
+{
+    if (x >= 0 && x < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x][y] = false;
+    if (x >= 0 && x < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x][y + 1] = true;
+
+    if (x + 1 >= 0 && x + 1 < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x + 1][y] = true;
+    if (x + 1 >= 0 && x + 1 < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x + 1][y + 1] = true;
+    
+    if (x + 2 >= 0 && x + 2 < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x + 2][y] = true;
+    if (x + 2 >= 0 && x + 2 < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x + 2][y + 1] = true;
+
+    if (x + 3 >= 0 && x + 3 < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x + 3][y] = true;
+    if (x + 3 >= 0 && x + 3 < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x + 3][y + 1] = false;
+
+
+}
+
+/* Blinker */
+void Board::Show_pattern_5(int x, int y)
+{
+    if (x >= 0 && x < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x][y] = true;
+    if (x >= 0 && x < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x][y + 1] = true;
+    if (x >= 0 && x < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x][y + 2] = true;
+}
+
+/* Crocodile */
+void Board::Show_pattern_6(int x, int y)
+{
+    if (x >= 0 && x < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x][y] = true;
+    if (x >= 0 && x < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x][y + 1] = true;
+    if (x >= 0 && x < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x][y + 2] = true;
+
+    if (x + 1 >= 0 && x + 1 < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x + 1][y] = true;
+    if (x + 1 >= 0 && x + 1 < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x + 1][y + 1] = false;
+    if (x + 1 >= 0 && x + 1 < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x + 1][y + 2] = true;
+
+    if (x + 2 >= 0 && x + 2 < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x + 2][y] = true;
+    if (x + 2 >= 0 && x + 2 < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x + 2][y + 1] = true;
+    if (x + 2 >= 0 && x + 2 < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x + 2][y + 2] = true;
+
+    if (x + 3 >= 0 && x + 3 < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x + 3][y] = true;
+    if (x + 3 >= 0 && x + 3 < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x + 3][y + 1] = true;
+    if (x + 3 >= 0 && x + 3 < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x + 3][y + 2] = true;
+
+    if (x + 4 >= 0 && x + 4 < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x + 4][y] = true;
+    if (x + 4 >= 0 && x + 4 < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x + 4][y + 1] = true;
+    if (x + 4 >= 0 && x + 4 < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x + 4][y + 2] = true;
+
+    if (x + 5 >= 0 && x + 5 < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x + 5][y] = true;
+    if (x + 5 >= 0 && x + 5 < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x + 5][y + 1] = true;
+    if (x + 5 >= 0 && x + 5 < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x + 5][y + 2] = true;
+
+    if (x + 6 >= 0 && x + 6 < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x + 6][y] = true;
+    if (x + 6 >= 0 && x + 6 < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x + 6][y + 1] = false;
+    if (x + 6 >= 0 && x + 6 < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x + 6][y + 2] = true;
+
+    if (x + 7 >= 0 && x + 7 < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x + 7][y] = true;
+    if (x + 7 >= 0 && x + 7 < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x + 7][y + 1] = true;
+    if (x + 7 >= 0 && x + 7 < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x + 7][y + 2] = true;
+}
+
+/* Boat */
+void Board::Show_pattern_7(int x, int y)
+{
+    if (x >= 0 && x < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x][y] = true;
+    if (x >= 0 && x < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x][y + 1] = true;
+    if (x >= 0 && x < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x][y + 2] = false;
+
+    if (x + 1 >= 0 && x + 1 < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x + 1][y] = true;
+    if (x + 1 >= 0 && x + 1 < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x + 1][y + 1] = false;
+    if (x + 1 >= 0 && x + 1 < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x + 1][y + 2] = true;
+
+    if (x + 2 >= 0 && x + 2 < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x + 2][y] = false;
+    if (x + 2 >= 0 && x + 2 < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x + 2][y + 1] = true;
+    if (x + 2 >= 0 && x + 2 < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x + 2][y + 2] = false;
+}
+
+
+/* Loaf */
+void Board::Show_pattern_8(int x, int y)
+{
+    if (x >= 0 && x < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x][y] = false;
+    if (x >= 0 && x < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x][y + 1] = true;
+    if (x >= 0 && x < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x][y + 2] = true;
+    if (x >= 0 && x < number_of_cells && y + 3 >= 0 && y + 3 < number_of_cells)
+        current_population[x][y + 3] = false;
+
+    if (x + 1 >= 0 && x + 1 < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x + 1][y] = true;
+    if (x + 1 >= 0 && x + 1 < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x + 1][y + 1] = false;
+    if (x + 1 >= 0 && x + 1 < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x + 1][y + 2] = false;
+    if (x + 1 >= 0 && x + 1 < number_of_cells && y + 3 >= 0 && y + 3 < number_of_cells)
+        current_population[x + 1][y + 3] = true;
+
+    if (x + 2 >= 0 && x + 2 < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x + 2][y] = true;
+    if (x + 2 >= 0 && x + 2 < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x + 2][y + 1] = false;
+    if (x + 2 >= 0 && x + 2 < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x + 2][y + 2] = true;
+    if (x + 2 >= 0 && x + 2 < number_of_cells && y + 3 >= 0 && y + 3 < number_of_cells)
+        current_population[x + 2][y + 3] = false;
+
+    if (x + 3 >= 0 && x + 3 < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x + 3][y] = false;
+    if (x + 3 >= 0 && x + 3 < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x + 3][y + 1] = true;
+    if (x + 3 >= 0 && x + 3 < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x + 3][y + 2] = false;
+    if (x + 3 >= 0 && x + 3 < number_of_cells && y + 3 >= 0 && y + 3 < number_of_cells)
+        current_population[x + 3][y + 3] = false;
+}
+
+/* Crystal */
+void Board::Show_pattern_9(int x, int y)
+{
+    if (x >= 0 && x < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x][y] = false;
+    if (x >= 0 && x < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x][y + 1] = true;
+    if (x >= 0 && x < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x][y + 2] = true;
+    if (x >= 0 && x < number_of_cells && y + 3 >= 0 && y + 3 < number_of_cells)
+        current_population[x][y + 3] = false;
+
+
+    if (x + 1 >= 0 && x + 1 < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x + 1][y] = true;
+    if (x + 1 >= 0 && x + 1 < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x + 1][y + 1] = false;
+    if (x + 1 >= 0 && x + 1 < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x + 1][y + 2] = false;
+    if (x + 1 >= 0 && x + 1 < number_of_cells && y + 3 >= 0 && y + 3 < number_of_cells)
+        current_population[x + 1][y + 3] = true;
+
+    if (x + 2 >= 0 && x + 2 < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x + 2][y] = false;
+    if (x + 2 >= 0 && x + 2 < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x + 2][y + 1] = true;
+    if (x + 2 >= 0 && x + 2 < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x + 2][y + 2] = true;
+    if (x + 2 >= 0 && x + 2 < number_of_cells && y + 3 >= 0 && y + 3 < number_of_cells)
+        current_population[x + 2][y + 3] = false;
+}
+
+/* Clover */
+void Board::Show_pattern_0(int x, int y)
+{
+    if (x >= 0 && x < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x][y] = false;
+    if (x >= 0 && x < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x][y + 1] = true;
+    if (x >= 0 && x < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x][y + 2] = false;
+
+    if (x + 1 >= 0 && x + 1 < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x + 1][y] = true;
+    if (x + 1 >= 0 && x + 1 < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x + 1][y + 1] = false;
+    if (x + 1 >= 0 && x + 1 < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x + 1][y + 2] = true;
+
+    if (x + 2 >= 0 && x + 2 < number_of_cells && y >= 0 && y < number_of_cells)
+        current_population[x + 2][y] = false;
+    if (x + 2 >= 0 && x + 2 < number_of_cells && y + 1 >= 0 && y + 1 < number_of_cells)
+        current_population[x + 2][y + 1] = true;
+    if (x + 2 >= 0 && x + 2 < number_of_cells && y + 2 >= 0 && y + 2 < number_of_cells)
+        current_population[x + 2][y + 2] = false;
+}
