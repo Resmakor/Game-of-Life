@@ -1,0 +1,2 @@
+Konsolidator > dane wejsciowe: (tak, zeby dzialalo wszystko w jednym exe)
+Advapi32.lib;User32.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;ws2_32.lib;
